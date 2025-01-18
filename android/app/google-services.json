@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "51019920779",
+    "project_id": "conscious-circle",
+    "storage_bucket": "conscious-circle.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:51019920779:android:956427304f9310af2cab8e",
+        "android_client_info": {
+          "package_name": "com.conscious"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDIfwWGMCfkgyR_pQsBs-8hmd7WibiKBzo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:51019920779:android:bea43c31d03955c22cab8e",
+        "android_client_info": {
+          "package_name": "com.conscious.circle"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDIfwWGMCfkgyR_pQsBs-8hmd7WibiKBzo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
