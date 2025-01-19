@@ -1162,6 +1162,9 @@ PODS:
   - Firebase/Firestore (11.7.0):
     - Firebase/CoreOnly
     - FirebaseFirestore (~> 11.7.0)
+  - Firebase/Storage (11.7.0):
+    - Firebase/CoreOnly
+    - FirebaseStorage (~> 11.7.0)
   - FirebaseAppCheckInterop (11.7.0)
   - FirebaseAuth (11.7.0):
     - FirebaseAppCheckInterop (~> 11.0)
@@ -1202,6 +1205,13 @@ PODS:
     - leveldb-library (~> 1.22)
     - nanopb (~> 3.30910.0)
   - FirebaseSharedSwift (11.7.0)
+  - FirebaseStorage (11.7.0):
+    - FirebaseAppCheckInterop (~> 11.0)
+    - FirebaseAuthInterop (~> 11.0)
+    - FirebaseCore (~> 11.7.0)
+    - FirebaseCoreExtension (~> 11.7.0)
+    - GoogleUtilities/Environment (~> 8.0)
+    - GTMSessionFetcher/Core (< 5.0, >= 3.4)
   - fmt (9.1.0)
   - glog (0.3.5)
   - GoogleUtilities/AppDelegateSwizzler (8.0.2):
@@ -2560,6 +2570,27 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
+  - react-native-image-picker (7.2.3):
+    - DoubleConversion
+    - glog
+    - hermes-engine
+    - RCT-Folly (= 2024.01.01.00)
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-rendererdebug
+    - React-utils
+    - ReactCodegen
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - Yoga
   - react-native-safe-area-context (5.1.0):
     - DoubleConversion
     - glog
@@ -2915,6 +2946,27 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
+  - RNDateTimePicker (8.2.0):
+    - DoubleConversion
+    - glog
+    - hermes-engine
+    - RCT-Folly (= 2024.01.01.00)
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-rendererdebug
+    - React-utils
+    - ReactCodegen
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - Yoga
   - RNFBApp (21.7.0):
     - Firebase/CoreOnly (= 11.7.0)
     - React-Core
@@ -2926,7 +2978,98 @@ PODS:
     - Firebase/Firestore (= 11.7.0)
     - React-Core
     - RNFBApp
+  - RNFBStorage (21.7.0):
+    - Firebase/Storage (= 11.7.0)
+    - React-Core
+    - RNFBApp
   - RNGestureHandler (2.22.0):
+    - DoubleConversion
+    - glog
+    - hermes-engine
+    - RCT-Folly (= 2024.01.01.00)
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-rendererdebug
+    - React-utils
+    - ReactCodegen
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - Yoga
+  - RNReanimated (3.17.0-nightly-20241018-16297eb3c):
+    - DoubleConversion
+    - glog
+    - hermes-engine
+    - RCT-Folly (= 2024.01.01.00)
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-rendererdebug
+    - React-utils
+    - ReactCodegen
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - RNReanimated/reanimated (= 3.17.0-nightly-20241018-16297eb3c)
+    - RNReanimated/worklets (= 3.17.0-nightly-20241018-16297eb3c)
+    - Yoga
+  - RNReanimated/reanimated (3.17.0-nightly-20241018-16297eb3c):
+    - DoubleConversion
+    - glog
+    - hermes-engine
+    - RCT-Folly (= 2024.01.01.00)
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-rendererdebug
+    - React-utils
+    - ReactCodegen
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - RNReanimated/reanimated/apple (= 3.17.0-nightly-20241018-16297eb3c)
+    - Yoga
+  - RNReanimated/reanimated/apple (3.17.0-nightly-20241018-16297eb3c):
+    - DoubleConversion
+    - glog
+    - hermes-engine
+    - RCT-Folly (= 2024.01.01.00)
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-rendererdebug
+    - React-utils
+    - ReactCodegen
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - Yoga
+  - RNReanimated/worklets (3.17.0-nightly-20241018-16297eb3c):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -2992,29 +3135,7 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - RNSVG (15.11.1):
-    - DoubleConversion
-    - glog
-    - hermes-engine
-    - RCT-Folly (= 2024.01.01.00)
-    - RCTRequired
-    - RCTTypeSafety
-    - React-Core
-    - React-debug
-    - React-Fabric
-    - React-featureflags
-    - React-graphics
-    - React-ImageManager
-    - React-NativeModulesApple
-    - React-RCTFabric
-    - React-rendererdebug
-    - React-utils
-    - ReactCodegen
-    - ReactCommon/turbomodule/bridging
-    - ReactCommon/turbomodule/core
-    - RNSVG/common (= 15.11.1)
-    - Yoga
-  - RNSVG/common (15.11.1):
+  - RNVectorIcons (10.2.0):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -3076,6 +3197,7 @@ DEPENDENCIES:
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
   - React-Mapbuffer (from `../node_modules/react-native/ReactCommon`)
   - React-microtasksnativemodule (from `../node_modules/react-native/ReactCommon/react/nativemodule/microtasks`)
+  - react-native-image-picker (from `../node_modules/react-native-image-picker`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - React-nativeconfig (from `../node_modules/react-native/ReactCommon`)
   - React-NativeModulesApple (from `../node_modules/react-native/ReactCommon/react/nativemodule/core/platform/ios`)
@@ -3105,12 +3227,15 @@ DEPENDENCIES:
   - ReactCodegen (from `build/generated/ios`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - RNBootSplash (from `../node_modules/react-native-bootsplash`)
+  - "RNDateTimePicker (from `../node_modules/@react-native-community/datetimepicker`)"
   - "RNFBApp (from `../node_modules/@react-native-firebase/app`)"
   - "RNFBAuth (from `../node_modules/@react-native-firebase/auth`)"
   - "RNFBFirestore (from `../node_modules/@react-native-firebase/firestore`)"
+  - "RNFBStorage (from `../node_modules/@react-native-firebase/storage`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
+  - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
-  - RNSVG (from `../node_modules/react-native-svg`)
+  - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -3127,6 +3252,7 @@ SPEC REPOS:
     - FirebaseFirestore
     - FirebaseFirestoreInternal
     - FirebaseSharedSwift
+    - FirebaseStorage
     - GoogleUtilities
     - "gRPC-C++"
     - gRPC-Core
@@ -3208,6 +3334,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon"
   React-microtasksnativemodule:
     :path: "../node_modules/react-native/ReactCommon/react/nativemodule/microtasks"
+  react-native-image-picker:
+    :path: "../node_modules/react-native-image-picker"
   react-native-safe-area-context:
     :path: "../node_modules/react-native-safe-area-context"
   React-nativeconfig:
@@ -3266,18 +3394,24 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon"
   RNBootSplash:
     :path: "../node_modules/react-native-bootsplash"
+  RNDateTimePicker:
+    :path: "../node_modules/@react-native-community/datetimepicker"
   RNFBApp:
     :path: "../node_modules/@react-native-firebase/app"
   RNFBAuth:
     :path: "../node_modules/@react-native-firebase/auth"
   RNFBFirestore:
     :path: "../node_modules/@react-native-firebase/firestore"
+  RNFBStorage:
+    :path: "../node_modules/@react-native-firebase/storage"
   RNGestureHandler:
     :path: "../node_modules/react-native-gesture-handler"
+  RNReanimated:
+    :path: "../node_modules/react-native-reanimated"
   RNScreens:
     :path: "../node_modules/react-native-screens"
-  RNSVG:
-    :path: "../node_modules/react-native-svg"
+  RNVectorIcons:
+    :path: "../node_modules/react-native-vector-icons"
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
@@ -3297,6 +3431,7 @@ SPEC CHECKSUMS:
   FirebaseFirestore: e8528981558d50872e24119b9448b18e86cab9f6
   FirebaseFirestoreInternal: 953e31e70db09d928b927b65761171c680d2ea9b
   FirebaseSharedSwift: a45efd84d60ebbfdcdbaebc66948af3630459e62
+  FirebaseStorage: d35da127dd49edcbd07b8c07cf651a70161558b2
   fmt: 10c6e61f4be25dc963c36bd73fc7b1705fe975be
   glog: 08b301085f15bcbb6ff8632a8ebaf239aae04e6a
   GoogleUtilities: 26a3abef001b6533cf678d3eb38fd3f614b7872d
@@ -3322,20 +3457,21 @@ SPEC CHECKSUMS:
   React-FabricComponents: e74b35dc682a66b7fb24caa6252630e9159eac5b
   React-FabricImage: 4e828ff4896f515eff7762c9c5bfc65dc02093fd
   React-featureflags: 0c0803e06d3db7267bce68cf03057dc820cb569e
-  React-featureflagsnativemodule: e4440553861594ce1ab4da2d8acb4486c670a421
-  React-graphics: 20e88d34fa4ada72dcb4d04d251ebdea66a1aa82
-  React-hermes: add932964f5ef024c86352dcc0dc427e6309642e
-  React-idlecallbacksnativemodule: 47054965c7020e4af7b2038e95abc6d0b88305db
-  React-ImageManager: 0221592b8b202bde3a9bd9a98099601d0af70c70
-  React-jserrorhandler: f7c72b07f32be01babd3503df6ed0c3b1adc3067
-  React-jsi: 690f3742db66cab8d5219bcfbc19fee112c6bb0c
-  React-jsiexecutor: a060f7e989da21e2478f652d7799e3b5ae5db262
-  React-jsinspector: d64bcb6bb731da23c793de5bf3edbcd0ac81ed7a
-  React-jsitracing: 92aef17e13a4e068eb80abec9cdd39c19a307750
-  React-logger: 162c09cc432b02d4a0db31b1d98f6df5243a2679
-  React-Mapbuffer: eab34f6d54d26931c5f70eb19da1e36162d87bbd
-  React-microtasksnativemodule: 069ef12656a93e0344851e18de6cfb7bdfd9a59e
-  react-native-safe-area-context: e0625eb857b816dff4aca46e125759cb0927e225
+  React-featureflagsnativemodule: 4276457fb3dc4c1849ecc1f2157ac6ee1d3497fa
+  React-graphics: 296c48c5b042dea364705fc7a533b2077ed45080
+  React-hermes: 6eb81c6f72c25d9058b6030227d0fcc1f741a807
+  React-idlecallbacksnativemodule: 8b176f2a5cb62bcbe412178f4a14d01f0df3fba1
+  React-ImageManager: a3d93039080f8b0928c9c6b09a4605196a54685d
+  React-jserrorhandler: 27279233e8cbb5497f3dd848acc162c4dbaf7f8b
+  React-jsi: 47528a2928f38fe15e3d06a96de886e1a779ffc7
+  React-jsiexecutor: 88a141c4dc821e1b2aa7ecc7d6af7b186e8455a2
+  React-jsinspector: 985c8fbb403ccc27acd5323dd0a8d6afcdafa728
+  React-jsitracing: 5bc03305a7972654f4334939340aee0c0c520ab0
+  React-logger: d42a53754a7252cc7a851315f0da2e46b450ea92
+  React-Mapbuffer: 5e03437905ef365c5b29cc261403fd5246cba292
+  React-microtasksnativemodule: 7f4d1c22c4de3425995c30f6bf9136cff922aadc
+  react-native-image-picker: 3d0b0a3d29c978434e810e92b5da40c995d16a04
+  react-native-safe-area-context: 11cf61d0ee683a27e0b30acbe6a58cbaf37da106
   React-nativeconfig: 014403841159c621de6d2f888ad829aac530f93e
   React-NativeModulesApple: 5bebad70ac824fefe9c0a04a5e2c829a91365b9d
   React-perflogger: 4e80a5b8d61dfb38024e7d5b8efaf9ce1037d31f
@@ -3364,16 +3500,19 @@ SPEC CHECKSUMS:
   ReactCodegen: e61f5cbdd7d1c7144f3f9e07bc5f9fcbe7a71ccc
   ReactCommon: 407be731d21caa89dfb2f648868865b76c84d2d2
   RecaptchaInterop: 7d1a4a01a6b2cb1610a47ef3f85f0c411434cb21
-  RNBootSplash: 0ea38725fdeed2f4536711ddf5f699f0be3ef4f7
-  RNFBApp: 4c7d73433ec658888f3138dc5a20e46b8ebf8de3
-  RNFBAuth: 4bcc6f7c7147c552b9a15fb8429d69c459fc21cb
-  RNFBFirestore: 2b6d51662e7a75c5280aef0b6ec7c3cff416baa6
-  RNGestureHandler: 73e6b3eb6a65c764f0bca44b6ab5ac259d316a96
-  RNScreens: c5be23653cbe82a7e44c7719af3465e2f152c791
-  RNSVG: 3cd6669b7ad658c8b482db630dccf364c3b59cfb
+  RNBootSplash: ac2c99d7c906ca925afaee0a105fc76b36928274
+  RNDateTimePicker: dd58d8235c3d12d349c043c2d9bcedcbb513f106
+  RNFBApp: 328ef0f0990e3418be540902aaf54aa7603fc80d
+  RNFBAuth: a6477b2e878ab33ac699deba045d1395248c9876
+  RNFBFirestore: 49dbf6f024c8061208a2cfbca975b3d79cbdfd00
+  RNFBStorage: 9c385154776aaba0d0474644876c3601d815bb94
+  RNGestureHandler: c3cd88852db9aa6910d270da3246875fca3a4256
+  RNReanimated: d984ba4def846dbe828af7facd4f0429d1537bfb
+  RNScreens: 09f7a66d59a40dd4c0f012d69d2abb13c81cd3bc
+  RNVectorIcons: 959270651e3b1bd49d6c469fc9ac52149f67f55c
   SocketRocket: d4aabe649be1e368d1318fdf28a022d714d65748
   Yoga: c597d2c0803c51f27569fb69f05eeb76646c0074
 
-PODFILE CHECKSUM: d20d6d3636a2313ea62651d0d37736e181dd8c7f
+PODFILE CHECKSUM: c4f7f254f0eab1577ca660bd1df823c18dd7cc6c
 
 COCOAPODS: 1.16.2
