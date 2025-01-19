@@ -1,15 +1,20 @@
 import React from 'react';
-import {createStackNavigator} from '@react-navigation/stack';
+import {createDrawerNavigator} from '@react-navigation/drawer';
 import HomeScreen from '../screens/HomeScreen/HomeScreen';
 
-const Stack = createStackNavigator();
+import CustomDrawerContent from './CustomDrawerContent';
+import ProfileScreen from '../screens/ProfileScreen/ProfileScreen';
+
+const Drawer = createDrawerNavigator();
 
 const UserStack = () => {
   return (
-    <Stack.Navigator>
-      <Stack.Screen name="UserHome" component={HomeScreen} />
-      {/* <Stack.Screen name="MatchDetails" component={MatchDetailsScreen} /> */}
-    </Stack.Navigator>
+    <Drawer.Navigator
+      screenOptions={{headerShown: false}}
+      drawerContent={props => <CustomDrawerContent {...props} />}>
+      <Drawer.Screen name="Home" component={HomeScreen} />
+      <Drawer.Screen name="Profile" component={ProfileScreen} />
+    </Drawer.Navigator>
   );
 };
 

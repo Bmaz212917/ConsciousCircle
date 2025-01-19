@@ -1,11 +1,20 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
+import Header from '../../components/Header';
+import {useNavigation} from '@react-navigation/native';
 
 const HomeScreen = () => {
+  const navigation = useNavigation();
   return (
-    <View>
+    <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
+      <Header
+        leftIcon={'menu'}
+        rightIcon={'search'}
+        title={'Consious Circle'}
+        onLeftPress={() => navigation.openDrawer()}
+      />
       <Text>HomeScreen</Text>
-    </View>
+    </SafeAreaView>
   );
 };
 

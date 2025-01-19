@@ -11,6 +11,7 @@ const SignUpScreen = ({navigation}) => {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const isValidEmail = email => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -42,17 +43,22 @@ const SignUpScreen = ({navigation}) => {
     } catch (error) {
       console.error('Error signing up:', error.message);
       throw error; // Pass the error to the caller for error handling
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const handleSignUp = async () => {
+    setIsLoading(true);
     if (!isValidEmail(email)) {
       Alert.alert('Error', 'Please enter a valid email address.');
+      setIsLoading(false);
       return;
     }
 
     if (password !== confirmPassword) {
       Alert.alert('Error', 'Passwords do not match.');
+      setIsLoading(false);
       return;
     }
 
@@ -68,6 +74,7 @@ const SignUpScreen = ({navigation}) => {
       // await user.sendEmailVerification();
       // Redirect to Login screen
     } catch (error) {
+      setIsLoading(false);
       Alert.alert('Error', error.message);
     }
   };
@@ -126,6 +133,7 @@ const SignUpScreen = ({navigation}) => {
         containerStyle={styles.buttonStyle}
         onPress={handleSignUp}
         label="SIGN UP"
+        isLoading={isLoading}
       />
       <Text
         style={styles.memberText}

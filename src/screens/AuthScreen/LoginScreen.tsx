@@ -18,10 +18,11 @@ import {useAuth} from '../../context/AuthProvider';
 
 const LoginScreen = () => {
   const navigation = useNavigation();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('Test@yopmail.com');
+  const [password, setPassword] = useState('Test@123');
   const [loading, setLoading] = useState(false);
   const {setUserRole, setUser} = useAuth(); // Access context functions
+  const [isLoading, setIsLoading] = useState(false);
 
   const isValidEmail = email => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -29,15 +30,13 @@ const LoginScreen = () => {
   };
 
   const onSignInPress = async () => {
+    setIsLoading(true);
     if (!isValidEmail(email)) {
-      Alert.alert({
-        title: 'Error',
-        message: 'Please enter a valid email address.',
-      });
+      Alert.alert('Error', 'Please enter a valid email address.');
+      setIsLoading(false);
       return;
     }
 
-    setLoading(true);
     try {
       const userCredential = await auth().signInWithEmailAndPassword(
         email,
@@ -64,7 +63,7 @@ const LoginScreen = () => {
         return;
       }
 
-      if (user.email === 'arunsheoran90@gmail.com') {
+      if (user.email === 'test1@yopmail.com') {
         setUserRole('admin');
       } else {
         setUserRole('user');
@@ -72,7 +71,7 @@ const LoginScreen = () => {
     } catch (err) {
       Alert.alert('error');
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
   };
 
@@ -122,6 +121,7 @@ const LoginScreen = () => {
             containerStyle={styles.buttonStyle}
             onPress={onSignInPress}
             label="SIGN IN"
+            isLoading={isLoading}
           />
           <View style={styles.memberContainer}>
             <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>

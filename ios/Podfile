@@ -15,7 +15,8 @@ if linkage != nil
 end
 
 target 'conscious' do
-    use_frameworks! # Enable dynamic frameworks
+use_frameworks! :linkage => :static
+
 
   config = use_native_modules!
 
