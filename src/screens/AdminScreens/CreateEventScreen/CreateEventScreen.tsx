@@ -10,11 +10,13 @@ import {
   Alert,
   ScrollView,
 } from 'react-native';
-import DateTimePicker from '@react-native-community/datetimepicker';
+import DatePicker from 'react-native-date-picker';
+import {Menu, Divider, Button} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/Ionicons';
 import firestore from '@react-native-firebase/firestore';
 import storage from '@react-native-firebase/storage';
 import * as ImagePicker from 'react-native-image-picker';
+import Header from '../../../components/Header';
 
 const CreateEventScreen = ({navigation}) => {
   const [eventName, setEventName] = useState('');
@@ -23,7 +25,10 @@ const CreateEventScreen = ({navigation}) => {
   const [eventDescription, setEventDescription] = useState('');
   const [imageUri, setImageUri] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
-  const [showDatePicker, setShowDatePicker] = useState(false);
+  const [datePickerVisible, setDatePickerVisible] = useState(false);
+  const [menuVisible, setMenuVisible] = useState(false);
+
+  const eventTypes = ['Free', 'Premium'];
 
   const handleImagePick = async () => {
     const result = await ImagePicker.launchImageLibrary({
@@ -68,95 +73,122 @@ const CreateEventScreen = ({navigation}) => {
   };
 
   return (
-    <ScrollView style={styles.container}>
-      {/* Image Upload Section */}
-      <TouchableOpacity
-        style={styles.imageUpload}
-        onPress={() => setModalVisible(true)}>
-        {imageUri ? (
-          <Image source={{uri: imageUri}} style={styles.imagePreview} />
-        ) : (
-          <Text style={styles.imageUploadText}>Upload Image</Text>
-        )}
-      </TouchableOpacity>
-
-      {/* Event Name */}
-      <Text style={styles.label}>Event Name</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Enter event name"
-        value={eventName}
-        onChangeText={setEventName}
+    <View style={{flex: 1, backgroundColor: '#fff'}}>
+      <Header
+        leftIcon={'arrow-back-outline'}
+        title={'Create Event'}
+        onLeftPress={() => navigation.goBack()}
       />
+      <ScrollView contentContainerStyle={styles.container}>
+        {/* Image Upload Section */}
+        <TouchableOpacity
+          style={styles.imageUpload}
+          onPress={() => setModalVisible(true)}>
+          {imageUri ? (
+            <Image source={{uri: imageUri}} style={styles.imagePreview} />
+          ) : (
+            <Text style={styles.imageUploadText}>Upload Image</Text>
+          )}
+        </TouchableOpacity>
 
-      {/* Event Type */}
-      <Text style={styles.label}>Event Type</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Enter event type"
-        value={eventType}
-        onChangeText={setEventType}
-      />
-
-      {/* Event Date & Time Picker */}
-      <Text style={styles.label}>Event Date & Time</Text>
-      <TouchableOpacity
-        style={styles.datePickerButton}
-        onPress={() => setShowDatePicker(true)}>
-        <Text style={styles.datePickerText}>{eventDate.toLocaleString()}</Text>
-      </TouchableOpacity>
-      {showDatePicker && (
-        <DateTimePicker
-          value={eventDate}
-          mode="datetime"
-          display="default"
-          onChange={(event, selectedDate) => {
-            setShowDatePicker(false);
-            if (selectedDate) setEventDate(selectedDate);
-          }}
+        {/* Event Name */}
+        <Text style={styles.label}>Event Name</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Enter event name"
+          value={eventName}
+          onChangeText={setEventName}
         />
-      )}
 
-      {/* Event Description */}
-      <Text style={styles.label}>Event Description</Text>
-      <TextInput
-        style={[styles.input, styles.textArea]}
-        placeholder="Enter event description"
-        value={eventDescription}
-        onChangeText={setEventDescription}
-        multiline
-        numberOfLines={4}
-      />
-
-      {/* Publish Event Button */}
-      <TouchableOpacity style={styles.publishButton} onPress={handlePublish}>
-        <Text style={styles.publishButtonText}>Publish Event</Text>
-      </TouchableOpacity>
-
-      {/* Image Picker Modal */}
-      <Modal
-        transparent={true}
-        visible={modalVisible}
-        animationType="slide"
-        onRequestClose={() => setModalVisible(false)}>
-        <View style={styles.modalContainer}>
-          <View style={styles.modalContent}>
+        {/* Event Type Dropdown */}
+        <Text style={styles.label}>Event Type</Text>
+        <Menu
+          visible={menuVisible}
+          onDismiss={() => setMenuVisible(false)}
+          anchor={
             <TouchableOpacity
-              style={styles.modalButton}
-              onPress={handleImagePick}>
-              <Icon name="image-outline" size={24} color="#000" />
-              <Text style={styles.modalButtonText}>Pick from Gallery</Text>
+              style={styles.menuButton}
+              onPress={() => setMenuVisible(true)}>
+              <Text style={styles.menuButtonText}>
+                {eventType || 'Select Event Type'}
+              </Text>
+              <Icon name="chevron-down-outline" size={20} color="#555" />
             </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.modalButton}
-              onPress={() => setModalVisible(false)}>
-              <Icon name="close-outline" size={24} color="#000" />
-              <Text style={styles.modalButtonText}>Cancel</Text>
-            </TouchableOpacity>
+          }>
+          {eventTypes.map(type => (
+            <Menu.Item
+              key={type}
+              onPress={() => {
+                setEventType(type);
+                setMenuVisible(false);
+              }}
+              title={type}
+            />
+          ))}
+        </Menu>
+
+        {/* Event Date & Time Picker */}
+        <Text style={styles.label}>Event Date & Time</Text>
+        <TouchableOpacity
+          style={styles.datePickerButton}
+          onPress={() => setDatePickerVisible(true)}>
+          <Text style={styles.datePickerText}>
+            {eventDate.toLocaleString()}
+          </Text>
+        </TouchableOpacity>
+        <DatePicker
+          modal
+          open={datePickerVisible}
+          date={eventDate}
+          mode="datetime"
+          onConfirm={date => {
+            setEventDate(date);
+            setDatePickerVisible(false);
+          }}
+          onCancel={() => setDatePickerVisible(false)}
+        />
+
+        {/* Event Description */}
+        <Text style={styles.label}>Event Description</Text>
+        <TextInput
+          style={[styles.input, styles.textArea]}
+          placeholder="Enter event description"
+          value={eventDescription}
+          onChangeText={setEventDescription}
+          multiline
+          numberOfLines={4}
+        />
+
+        {/* Publish Event Button */}
+        <TouchableOpacity style={styles.publishButton} onPress={handlePublish}>
+          <Text style={styles.publishButtonText}>Publish Event</Text>
+        </TouchableOpacity>
+
+        {/* Image Picker Modal */}
+        <Modal
+          transparent={true}
+          visible={modalVisible}
+          animationType="slide"
+          onRequestClose={() => setModalVisible(false)}>
+          <View style={styles.modalContainer}>
+            <View style={styles.modalContent}>
+              <TouchableOpacity
+                style={styles.modalButton}
+                onPress={handleImagePick}>
+                <Icon name="image-outline" size={24} color="#000" />
+                <Text style={styles.modalButtonText}>Pick from Gallery</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.modalButton}
+                onPress={() => setModalVisible(false)}>
+                <Icon name="close-outline" size={24} color="#000" />
+                <Text style={styles.modalButtonText}>Cancel</Text>
+              </TouchableOpacity>
+            </View>
           </View>
-        </View>
-      </Modal>
-    </ScrollView>
+        </Modal>
+      </ScrollView>
+    </View>
   );
 };
 
@@ -224,6 +256,20 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 16,
     fontWeight: 'bold',
+  },
+  menuButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#ddd',
+    borderRadius: 8,
+    paddingHorizontal: 10,
+    height: 50,
+    justifyContent: 'space-between',
+  },
+  menuButtonText: {
+    fontSize: 16,
+    color: '#555',
   },
   modalContainer: {
     flex: 1,

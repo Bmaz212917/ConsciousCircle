@@ -10,6 +10,7 @@ import {
 import Icon from 'react-native-vector-icons/Ionicons';
 import firestore from '@react-native-firebase/firestore';
 import {useNavigation} from '@react-navigation/native';
+import Header from '../../../components/Header';
 
 const AdminHomeScreen = () => {
   const navigation = useNavigation();
@@ -98,6 +99,12 @@ const AdminHomeScreen = () => {
 
   return (
     <View style={styles.container}>
+      <Header
+        leftIcon={'menu'}
+        rightIcon={'search'}
+        title={'Consious Circle'}
+        onLeftPress={() => navigation.openDrawer()}
+      />
       <View style={styles.sectionContainer}>
         <TouchableOpacity
           onPress={() => setActiveTab(1)}
@@ -153,7 +160,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     // padding: 10,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: '#fff',
   },
   heading: {
     fontSize: 20,

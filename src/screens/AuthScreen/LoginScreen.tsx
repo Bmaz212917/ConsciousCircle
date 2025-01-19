@@ -7,7 +7,8 @@ import {
   View,
   TextInput,
   TouchableOpacity,
-  Alert, ScrollView,
+  Alert,
+  ScrollView,
 } from 'react-native';
 import React, {useState} from 'react';
 import CommonTextInput from '../../components/CommonTextInput';
@@ -15,7 +16,7 @@ import CommonButton from '../../components/CommonButton';
 import {useNavigation} from '@react-navigation/native';
 import auth from '@react-native-firebase/auth';
 import {useAuth} from '../../context/AuthProvider';
-import EmailIcon  from '../../assets/icons/email.svg'
+import EmailIcon from '../../assets/icons/email.svg';
 
 const LoginScreen = () => {
   const navigation = useNavigation();
@@ -77,62 +78,65 @@ const LoginScreen = () => {
   };
 
   return (
-    <ScrollView style={styles.mainContainer}>
-      <ImageBackground
-        source={require('../../assets/icons/loginbg.png')}
-        style={styles.backgroundImage}>
-        <Image
-          source={require('../../assets/icons/logo.png')}
-          style={styles.logoStyle}
-        />
-        <View style={styles.formContainer}>
-          <CommonTextInput
-            placeholder="abc@email.com"
-            placeholderTextColor="white"
-            iconSource={<EmailIcon />}
-            isSvg={true}
-            enablesReturnKeyAutomatically
-            keyboardType="email-address"
-            onChangeText={setEmail}
-            value={email}
+    <View style={{flex: 1}}>
+      <ScrollView contentContainerStyle={styles.mainContainer}>
+        <ImageBackground
+          source={require('../../assets/icons/loginbg.png')}
+          style={styles.backgroundImage}>
+          <Image
+            source={require('../../assets/icons/logo.png')}
+            style={styles.logoStyle}
           />
-          <View style={styles.passContainer}>
-            <Image
-              source={require('../../assets/icons/Password.png')}
-              style={styles.passIcon}
-            />
-            <TextInput
-              style={styles.passInput}
-              placeholder="Your password"
+          <View style={styles.formContainer}>
+            <CommonTextInput
+              placeholder="abc@email.com"
               placeholderTextColor="white"
-              secureTextEntry
-              onChangeText={setPassword}
-              value={password}
+              // iconSource={<EmailIcon />}
+              isSvg={true}
+              enablesReturnKeyAutomatically
+              keyboardType="email-address"
+              onChangeText={setEmail}
+              value={email}
             />
-            <Image
-              source={require('../../assets/icons/Password.png')}
-              style={styles.eyeIcon}
+            <View style={styles.passContainer}>
+              <Image
+                source={require('../../assets/icons/Password.png')}
+                style={styles.passIcon}
+              />
+              <TextInput
+                style={styles.passInput}
+                placeholder="Your password"
+                placeholderTextColor="white"
+                secureTextEntry
+                onChangeText={setPassword}
+                value={password}
+              />
+              <Image
+                source={require('../../assets/icons/Password.png')}
+                style={styles.eyeIcon}
+              />
+            </View>
+            <View style={styles.forgotPassContainer}>
+              <TouchableOpacity
+                onPress={() => navigation.navigate('ResetPass')}>
+                <Text style={styles.forgotPassText}>Forgot Password?</Text>
+              </TouchableOpacity>
+            </View>
+            <CommonButton
+              containerStyle={styles.buttonStyle}
+              onPress={onSignInPress}
+              label="SIGN IN"
+              isLoading={isLoading}
             />
+            <View style={styles.memberContainer}>
+              <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
+                <Text style={styles.memberText}>Become A Member</Text>
+              </TouchableOpacity>
+            </View>
           </View>
-          <View style={styles.forgotPassContainer}>
-            <TouchableOpacity onPress={() => navigation.navigate('ResetPass')}>
-              <Text style={styles.forgotPassText}>Forgot Password?</Text>
-            </TouchableOpacity>
-          </View>
-          <CommonButton
-            containerStyle={styles.buttonStyle}
-            onPress={onSignInPress}
-            label="SIGN IN"
-            isLoading={isLoading}
-          />
-          <View style={styles.memberContainer}>
-            <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
-              <Text style={styles.memberText}>Become A Member</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </ImageBackground>
-    </ScrollView>
+        </ImageBackground>
+      </ScrollView>
+    </View>
   );
 };
 
