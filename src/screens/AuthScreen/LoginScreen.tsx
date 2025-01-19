@@ -7,7 +7,7 @@ import {
   View,
   TextInput,
   TouchableOpacity,
-  Alert,
+  Alert, ScrollView,
 } from 'react-native';
 import React, {useState} from 'react';
 import CommonTextInput from '../../components/CommonTextInput';
@@ -15,6 +15,7 @@ import CommonButton from '../../components/CommonButton';
 import {useNavigation} from '@react-navigation/native';
 import auth from '@react-native-firebase/auth';
 import {useAuth} from '../../context/AuthProvider';
+import EmailIcon  from '../../assets/icons/email.svg'
 
 const LoginScreen = () => {
   const navigation = useNavigation();
@@ -76,7 +77,7 @@ const LoginScreen = () => {
   };
 
   return (
-    <SafeAreaView style={styles.mainContainer}>
+    <ScrollView style={styles.mainContainer}>
       <ImageBackground
         source={require('../../assets/icons/loginbg.png')}
         style={styles.backgroundImage}>
@@ -88,7 +89,8 @@ const LoginScreen = () => {
           <CommonTextInput
             placeholder="abc@email.com"
             placeholderTextColor="white"
-            iconSource={require('../../assets/icons/Mail.png')}
+            iconSource={<EmailIcon />}
+            isSvg={true}
             enablesReturnKeyAutomatically
             keyboardType="email-address"
             onChangeText={setEmail}
@@ -130,7 +132,7 @@ const LoginScreen = () => {
           </View>
         </View>
       </ImageBackground>
-    </SafeAreaView>
+    </ScrollView>
   );
 };
 

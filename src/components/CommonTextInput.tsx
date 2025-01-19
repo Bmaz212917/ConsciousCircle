@@ -9,22 +9,29 @@ import {
 } from 'react-native';
 
 interface CommonTextInputProps extends TextInputProps {
+  isSvg?:boolean;
   iconSource: ImageSourcePropType; // Source of the icon image
   iconSize?: number; // Size of the icon (width and height will be the same)
 }
 
 const CommonTextInput: React.FC<CommonTextInputProps> = ({
+  isSvg=false,
   iconSource,
   iconSize = 24,
   style,
   ...textInputProps
 }) => {
+  // Needs to pass image also from previous screen
   return (
     <View style={styles.container}>
-      <Image
-        source={iconSource}
-        style={[styles.icon, {width: iconSize, height: iconSize}]}
-      />
+      {iconSource &&
+          <View style={styles.icon}>
+            {isSvg? iconSource: <Image
+                source={iconSource}
+                style={[{width: iconSize, height: iconSize}]}
+            />}
+          </View>
+      }
       <TextInput
         style={[styles.input, style]}
         placeholderTextColor={'white'}
