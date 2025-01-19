@@ -6,6 +6,7 @@ import {
   Text,
   TextStyle,
   ViewStyle,
+  ActivityIndicator,
 } from 'react-native';
 
 interface CommonButtonProps extends TextProps {
@@ -13,6 +14,7 @@ interface CommonButtonProps extends TextProps {
   label: string;
   onPress: () => void;
   containerStyle?: ViewStyle;
+  isLoading: boolean;
 }
 
 const CommonButton: React.FC<CommonButtonProps> = ({
@@ -20,15 +22,21 @@ const CommonButton: React.FC<CommonButtonProps> = ({
   containerStyle,
   label,
   onPress,
+  isLoading,
   ...textProps
 }) => {
   return (
     <TouchableOpacity
       onPress={onPress}
+      disabled={isLoading}
       style={[styles.container, containerStyle]}>
-      <Text style={[styles.text, textStyle]} {...textProps}>
-        {label}
-      </Text>
+      {isLoading ? (
+        <ActivityIndicator />
+      ) : (
+        <Text style={[styles.text, textStyle]} {...textProps}>
+          {label}
+        </Text>
+      )}
     </TouchableOpacity>
   );
 };

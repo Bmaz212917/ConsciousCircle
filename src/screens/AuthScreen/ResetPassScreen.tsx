@@ -19,6 +19,7 @@ const ResetPassScreen = () => {
   const navigation = useNavigation();
   const [email, setEmail] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const sendPasswordResetEmail = async email => {
     try {
@@ -34,17 +35,23 @@ const ResetPassScreen = () => {
         Alert.alert('An error occurred. Please try again later.');
         console.error('Error sending password reset email:', error.message);
       }
+    } finally {
+      setIsLoading(false);
     }
   };
   const handleResetPassword = async () => {
+    setIsLoading(true);
     if (!email) {
       setErrorMessage('Email is required.');
+      setIsLoading(false);
+
       return;
     }
 
     try {
       await sendPasswordResetEmail(email);
     } catch (error) {
+      setIsLoading(false);
       setErrorMessage(error.message);
     }
   };
@@ -78,6 +85,7 @@ const ResetPassScreen = () => {
         onPress={handleResetPassword}
         textStyle={{color: 'white'}}
         containerStyle={{backgroundColor: 'black', marginTop: 20}}
+        isLoading={isLoading}
       />
     </SafeAreaView>
   );
