@@ -20,7 +20,7 @@ import EmailIcon from '../../assets/icons/email.svg';
 
 const LoginScreen = () => {
   const navigation = useNavigation();
-  const [email, setEmail] = useState('Test@yopmail.com');
+  const [email, setEmail] = useState('Test1@yopmail.com');
   const [password, setPassword] = useState('Test@123');
   const [loading, setLoading] = useState(false);
   const {setUserRole, setUser} = useAuth(); // Access context functions

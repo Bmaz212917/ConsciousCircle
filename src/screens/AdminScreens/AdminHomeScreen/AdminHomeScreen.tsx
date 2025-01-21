@@ -6,40 +6,55 @@ import {
   FlatList,
   TouchableOpacity,
   Animated,
+  Image,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import firestore from '@react-native-firebase/firestore';
 import {useNavigation} from '@react-navigation/native';
 import Header from '../../../components/Header';
+import EventListItem from '../../../components/EventListItem';
 
 const AdminHomeScreen = () => {
   const navigation = useNavigation();
-  const [events, setEvents] = useState([]);
+  const [events, setEvents] = useState([
+    {
+      title: 'International Band Music',
+      location: '36 Guild Street London, UK ',
+      date: new Date(),
+      type: 'FREE',
+      numOfMembers: 20,
+      image: require('../../../assets/images/yoga.png'),
+      description:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud... Read More',
+    },
+  ]);
   const [sessions, setSessions] = useState([]);
   const [fabOpen, setFabOpen] = useState(false);
   const [activeTab, setActiveTab] = useState(1);
+  const [searchQuery, setSearchQuery] = useState('');
+
   const animation = React.useRef(new Animated.Value(0)).current; // Ensure proper initialization
 
   // Fetch Events and Sessions from Firestore
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const eventsSnapshot = await firestore().collection('events').get();
-        const sessionsSnapshot = await firestore().collection('sessions').get();
+  //   useEffect(() => {
+  //     const fetchData = async () => {
+  //       try {
+  //         const eventsSnapshot = await firestore().collection('events').get();
+  //         const sessionsSnapshot = await firestore().collection('sessions').get();
 
-        setEvents(
-          eventsSnapshot.docs.map(doc => ({id: doc.id, ...doc.data()})),
-        );
-        setSessions(
-          sessionsSnapshot.docs.map(doc => ({id: doc.id, ...doc.data()})),
-        );
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
+  //         setEvents(
+  //           eventsSnapshot.docs.map(doc => ({id: doc.id, ...doc.data()})),
+  //         );
+  //         setSessions(
+  //           sessionsSnapshot.docs.map(doc => ({id: doc.id, ...doc.data()})),
+  //         );
+  //       } catch (error) {
+  //         console.error('Error fetching data:', error);
+  //       }
+  //     };
 
-    fetchData();
-  }, []);
+  //     fetchData();
+  //   }, []);
 
   // Toggle FAB animation
   const toggleFab = () => {
@@ -97,6 +112,10 @@ const AdminHomeScreen = () => {
     }),
   };
 
+  const handleSearch = query => {
+    setSearchQuery(query);
+    console.log('Search Query:', query);
+  };
   return (
     <View style={styles.container}>
       <Header
@@ -104,6 +123,7 @@ const AdminHomeScreen = () => {
         rightIcon={'search'}
         title={'Consious Circle'}
         onLeftPress={() => navigation.openDrawer()}
+        onSearch={handleSearch}
       />
       <View style={styles.sectionContainer}>
         <TouchableOpacity
@@ -119,13 +139,9 @@ const AdminHomeScreen = () => {
       </View>
       <FlatList
         data={events}
-        keyExtractor={item => item.id}
-        renderItem={({item}) => (
-          <View style={styles.listItem}>
-            <Text style={styles.itemTitle}>{item.title}</Text>
-            <Text style={styles.itemDetails}>{item.date}</Text>
-          </View>
-        )}
+        keyExtractor={item => item?.id}
+        style={styles.listStyle}
+        renderItem={({item}) => <EventListItem data={item} />}
       />
       {/* Floating Action Button */}
       <View style={styles.fabContainer}>
@@ -142,8 +158,9 @@ const AdminHomeScreen = () => {
         <Animated.View style={[styles.fabButton, fabStyle2]}>
           <TouchableOpacity
             style={styles.fabAction}
-            onPress={() => navigation.navigate('AddCoachScreen')}>
+            onPress={() => navigation.navigate('AddCoach')}>
             <Icon name="person-add-outline" size={24} color="#fff" />
+            {/* <Text>Add Coach</Text> */}
           </TouchableOpacity>
         </Animated.View>
 
@@ -180,21 +197,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flex: 1,
   },
-  listItem: {
-    backgroundColor: '#fff',
-    padding: 15,
-    borderRadius: 8,
-    marginBottom: 10,
-    elevation: 2,
+  listStyle: {
+    padding: 10,
+    paddingHorizontal: 20,
   },
-  itemTitle: {
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
-  itemDetails: {
-    fontSize: 14,
-    color: '#555',
-  },
+
   fabContainer: {
     position: 'absolute',
     bottom: 20,

@@ -11,6 +11,7 @@ import {DrawerItemList} from '@react-navigation/drawer';
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
 import {useAuth} from '../context/AuthProvider';
+import Icon from 'react-native-vector-icons/Ionicons'; // Import icon library
 
 const CustomDrawerContent = props => {
   const [userData, setUserData] = useState(null);
@@ -20,14 +21,12 @@ const CustomDrawerContent = props => {
     const fetchUserData = async () => {
       try {
         const currentUser = auth().currentUser;
-        console.log('currentUser', currentUser);
 
         if (currentUser) {
           const userDoc = await firestore()
             .collection('users')
             .doc(currentUser.uid)
             .get();
-          console.log('userDoc', userDoc);
 
           if (userDoc.exists) {
             setUserData(userDoc.data());
@@ -53,23 +52,41 @@ const CustomDrawerContent = props => {
       <View style={styles.profileSection}>
         <Image
           source={{
-            uri: 'https://via.placeholder.com/150', // Replace with user's profile picture URL
+            uri: userData?.profilePicture || 'https://picsum.photos/200', // Replace with user's profile picture URL
           }}
           style={styles.profileImage}
         />
-        <Text style={styles.userName}>{userData?.name}</Text>
-        {/* <Text style={styles.userEmail}>johndoe@example.com</Text> */}
+        <Text style={styles.userName}>{userData?.name || 'User Name'}</Text>
       </View>
 
       {/* Drawer Items */}
       <View style={styles.drawerItems}>
-        <DrawerItemList {...props} />
+        <TouchableOpacity
+          style={styles.menuItem}
+          onPress={() => props.navigation.navigate('Profile')}>
+          <Icon name="person-outline" size={24} color="black" />
+          <Text style={styles.menuItemText}>My Profile</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.menuItem}
+          onPress={() => props.navigation.navigate('Coach')}>
+          <Icon name="people-outline" size={24} color="black" />
+          <Text style={styles.menuItemText}>Coach</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.menuItem}
+          onPress={() => props.navigation.navigate('Subscription')}>
+          <Icon name="diamond" size={24} color="black" />
+          <Text style={styles.menuItemText}>Subscription</Text>
+        </TouchableOpacity>
       </View>
 
       {/* Logout Button */}
       <TouchableOpacity style={styles.logoutButton} onPress={onLogout}>
-        {/* <Icon name="log-out-outline" size={20} color="white" /> */}
-        <Text style={styles.logoutText}>Logout</Text>
+        <Icon name="log-out-outline" size={24} color="#E53935" />
+        <Text style={styles.logoutText}>Sign Out</Text>
       </TouchableOpacity>
     </SafeAreaView>
   );
@@ -78,11 +95,11 @@ const CustomDrawerContent = props => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    justifyContent: 'space-between',
   },
   profileSection: {
+    alignItems: 'flex-start',
     padding: 20,
-    // backgroundColor: '#6200EE', // Customize background color
-    alignItems: 'center',
   },
   profileImage: {
     width: 80,
@@ -91,30 +108,37 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   userName: {
-    // color: 'white',
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: 'bold',
-  },
-  userEmail: {
-    // color: 'white',
-    fontSize: 14,
+    color: 'black',
   },
   drawerItems: {
     flex: 1,
-    marginTop: 10,
+    justifyContent: 'flex-start',
+  },
+  menuItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 15,
+    paddingHorizontal: 20,
+  },
+  menuItemText: {
+    fontSize: 16,
+    color: 'black',
+    marginLeft: 15,
   },
   logoutButton: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#E53935', // Customize logout button color
-    padding: 15,
-    margin: 20,
-    borderRadius: 10,
+    paddingVertical: 15,
+    paddingHorizontal: 20,
+    marginBottom: 20,
+    alignSelf: 'flex-start',
   },
   logoutText: {
-    color: 'white',
     fontSize: 16,
+    color: '#E53935',
     marginLeft: 10,
   },
 });

@@ -11,15 +11,18 @@ import {
   ScrollView,
 } from 'react-native';
 import DatePicker from 'react-native-date-picker';
-import {Menu, Divider, Button} from 'react-native-paper';
+import {Menu} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/Ionicons';
 import firestore from '@react-native-firebase/firestore';
 import storage from '@react-native-firebase/storage';
 import * as ImagePicker from 'react-native-image-picker';
 import Header from '../../../components/Header';
+import CommonButton from '../../../components/CommonButton';
+import ImagePickerModal from '../../../components/ImagePickerModal';
 
 const CreateEventScreen = ({navigation}) => {
   const [eventName, setEventName] = useState('');
+  const [location, setLocation] = useState('');
   const [eventType, setEventType] = useState('');
   const [eventDate, setEventDate] = useState(new Date());
   const [eventDescription, setEventDescription] = useState('');
@@ -30,15 +33,39 @@ const CreateEventScreen = ({navigation}) => {
 
   const eventTypes = ['Free', 'Premium'];
 
-  const handleImagePick = async () => {
-    const result = await ImagePicker.launchImageLibrary({
-      mediaType: 'photo',
-    });
+  const options = {
+    mediaType: 'photo',
+    maxWidth: 300,
+    maxHeight: 300,
+    quality: 0.8,
+  };
 
-    if (result.assets && result.assets[0]) {
-      setImageUri(result.assets[0].uri);
-      setModalVisible(false);
-    }
+  const chooseFromGallery = () => {
+    ImagePicker.launchImageLibrary(options, response => {
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      } else if (response.errorCode) {
+        console.error('ImagePicker Error: ', response.errorMessage);
+      } else if (response.assets && response.assets.length > 0) {
+        const pickedImage = response.assets[0].uri;
+        setImageUri(pickedImage); // Save the selected image URI
+        setModalVisible(false); // Close modal
+      }
+    });
+  };
+
+  const takePhoto = () => {
+    ImagePicker.launchCamera(options, response => {
+      if (response.didCancel) {
+        console.log('User cancelled camera');
+      } else if (response.errorCode) {
+        console.error('Camera Error: ', response.errorMessage);
+      } else if (response.assets && response.assets.length > 0) {
+        const capturedImage = response.assets[0].uri;
+        setImageUri(capturedImage); // Save the captured image URI
+        setModalVisible(false); // Close modal
+      }
+    });
   };
 
   const handlePublish = async () => {
@@ -92,19 +119,27 @@ const CreateEventScreen = ({navigation}) => {
         </TouchableOpacity>
 
         {/* Event Name */}
-        <Text style={styles.label}>Event Name</Text>
+        <Text style={styles.label}>Event Details</Text>
         <TextInput
           style={styles.input}
-          placeholder="Enter event name"
+          placeholder="Name"
           value={eventName}
           onChangeText={setEventName}
         />
 
+        <TextInput
+          style={styles.input}
+          placeholder="Location"
+          value={location}
+          onChangeText={setLocation}
+        />
+
         {/* Event Type Dropdown */}
-        <Text style={styles.label}>Event Type</Text>
+        {/* <Text style={styles.label}>Event Type</Text> */}
         <Menu
           visible={menuVisible}
           onDismiss={() => setMenuVisible(false)}
+          anchorPosition="bottom"
           anchor={
             <TouchableOpacity
               style={styles.menuButton}
@@ -128,12 +163,19 @@ const CreateEventScreen = ({navigation}) => {
         </Menu>
 
         {/* Event Date & Time Picker */}
-        <Text style={styles.label}>Event Date & Time</Text>
+        {/* <Text style={styles.label}>Event Date & Time</Text> */}
         <TouchableOpacity
           style={styles.datePickerButton}
           onPress={() => setDatePickerVisible(true)}>
           <Text style={styles.datePickerText}>
-            {eventDate.toLocaleString()}
+            {eventDate.toLocaleString('en-US', {
+              day: 'numeric',
+              month: 'short',
+              year: 'numeric',
+              hour: 'numeric',
+              minute: '2-digit',
+              hour12: true,
+            })}
           </Text>
         </TouchableOpacity>
         <DatePicker
@@ -149,44 +191,28 @@ const CreateEventScreen = ({navigation}) => {
         />
 
         {/* Event Description */}
-        <Text style={styles.label}>Event Description</Text>
+
         <TextInput
           style={[styles.input, styles.textArea]}
-          placeholder="Enter event description"
+          placeholder="Description"
           value={eventDescription}
           onChangeText={setEventDescription}
           multiline
           numberOfLines={4}
         />
 
-        {/* Publish Event Button */}
-        <TouchableOpacity style={styles.publishButton} onPress={handlePublish}>
-          <Text style={styles.publishButtonText}>Publish Event</Text>
-        </TouchableOpacity>
-
+        <CommonButton
+          label="Publish Event"
+          containerStyle={{backgroundColor: 'black'}}
+          textStyle={{color: 'white'}}
+        />
         {/* Image Picker Modal */}
-        <Modal
-          transparent={true}
+        <ImagePickerModal
           visible={modalVisible}
-          animationType="slide"
-          onRequestClose={() => setModalVisible(false)}>
-          <View style={styles.modalContainer}>
-            <View style={styles.modalContent}>
-              <TouchableOpacity
-                style={styles.modalButton}
-                onPress={handleImagePick}>
-                <Icon name="image-outline" size={24} color="#000" />
-                <Text style={styles.modalButtonText}>Pick from Gallery</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={styles.modalButton}
-                onPress={() => setModalVisible(false)}>
-                <Icon name="close-outline" size={24} color="#000" />
-                <Text style={styles.modalButtonText}>Cancel</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </Modal>
+          onClose={() => setModalVisible(false)}
+          onTakePhoto={takePhoto}
+          onChooseFromGallery={chooseFromGallery}
+        />
       </ScrollView>
     </View>
   );
@@ -205,6 +231,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 20,
+    borderWidth: 1,
+    borderStyle: 'dashed',
   },
   imageUploadText: {
     color: '#aaa',
@@ -227,6 +255,8 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     paddingHorizontal: 10,
     marginBottom: 20,
+    fontSize: 16,
+    paddingVertical: 10,
   },
   textArea: {
     height: 100,
@@ -239,7 +269,7 @@ const styles = StyleSheet.create({
     borderColor: '#ddd',
     borderRadius: 8,
     paddingHorizontal: 10,
-    marginBottom: 20,
+    marginVertical: 15,
   },
   datePickerText: {
     fontSize: 16,
