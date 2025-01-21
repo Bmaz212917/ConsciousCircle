@@ -10,7 +10,12 @@ const Drawer = createDrawerNavigator();
 const UserStack = () => {
   return (
     <Drawer.Navigator
-      screenOptions={{headerShown: false}}
+      screenOptions={{
+        headerShown: false,
+        drawerStyle: {
+          width: 250,
+        },
+      }}
       drawerContent={props => <CustomDrawerContent {...props} />}>
       <Drawer.Screen name="Home" component={HomeScreen} />
       <Drawer.Screen name="Profile" component={ProfileScreen} />
