@@ -3,5 +3,5 @@ module.exports = {
     ios: {},
     android: {}, // grouped into "project"
   },
-  assets: ['./src/assets/icons/'], // stays the same
+  assets: ['./src/assets/icons/','./assets/fonts/'], // stays the same
 };

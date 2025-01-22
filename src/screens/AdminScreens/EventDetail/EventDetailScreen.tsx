@@ -36,7 +36,7 @@ const EventDetailScreen = props => {
               </Text>
             </View>
           </View>
-          <View style={styles.profileContainer}>
+          {/*<View style={styles.profileContainer}>
             <Image source={data?.image} style={styles.profileImage} />
             <View style={styles.nameContainer}>
               <Text style={styles.nameText}>Tamim Ikram</Text>
@@ -48,7 +48,7 @@ const EventDetailScreen = props => {
             <View style={styles.iconContainer}>
               <Icon name="chatbubbles" size={20} color={'white'} />
             </View>
-          </View>
+          </View>*/}
           <View style={styles.descContainer}>
             <Text style={styles.descTitleText}>Description</Text>
             <Text style={styles.descText}>{data?.description}</Text>
