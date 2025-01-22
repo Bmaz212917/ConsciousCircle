@@ -33,7 +33,7 @@ const CommonButton: React.FC<CommonButtonProps> = ({
       {isLoading ? (
         <ActivityIndicator />
       ) : (
-        <Text style={[styles.text, textStyle]} {...textProps}>
+        <Text style={[styles.textStyle, textStyle]} {...textProps}>
           {label}
         </Text>
       )}
@@ -50,9 +50,10 @@ const styles = StyleSheet.create({
   icon: {
     marginRight: 8,
   },
-  text: {
+  textStyle: {
     fontSize: 18,
     color: 'black',
+    fontFamily: 'SourceSerif4Italic', // Use the font family name
   },
 });
 

@@ -141,7 +141,7 @@ const AdminHomeScreen = () => {
         data={events}
         keyExtractor={item => item?.id}
         style={styles.listStyle}
-        renderItem={({item}) => <EventListItem data={item} />}
+        renderItem={({item,index}) => <EventListItem data={item} key={index.toString()} />}
       />
       {/* Floating Action Button */}
       <View style={styles.fabContainer}>
