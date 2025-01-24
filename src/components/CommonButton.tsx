@@ -15,7 +15,7 @@ interface CommonButtonProps extends TextProps {
   label: string;
   onPress: () => void;
   containerStyle?: ViewStyle;
-  isLoading: boolean;
+  isLoading?: boolean;
 }
 
 const CommonButton: React.FC<CommonButtonProps> = ({

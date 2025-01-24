@@ -10,7 +10,7 @@ import {
 
 interface CommonTextInputProps extends TextInputProps {
   isSvg?:boolean;
-  iconSource: ImageSourcePropType; // Source of the icon image
+  iconSource?: ImageSourcePropType; // Source of the icon image
   iconSize?: number; // Size of the icon (width and height will be the same)
 }
 

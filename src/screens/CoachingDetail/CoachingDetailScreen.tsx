@@ -26,7 +26,7 @@ const CoachingDetailScreen = props => {
         leftIcon="arrow-back-outline"
         onLeftPress={() => navigation.goBack()}
       />
-      <ScrollView>
+      <ScrollView style={styles.scrollViewStyle}>
         <Image source={data?.image} style={{height: 280}} />
         <View style={styles.userContainer}>
           <Image source={data?.coach?.image} style={styles.profileImage} />
@@ -94,7 +94,7 @@ const CoachingDetailScreen = props => {
           label="JOIN NOW"
           containerStyle={styles.buttonStyle}
           textStyle={{color: 'white'}}
-        />
+          onPress={()=>{console.log('dd')}}/>
       ) : (
         <CommonButton
           label="BOOK NOW"
@@ -113,6 +113,9 @@ const styles = StyleSheet.create({
     flex: 1,
     alignContent: 'center',
     backgroundColor: 'white',
+  },
+  scrollViewStyle:{
+    marginBottom:10
   },
   detailContainer: {
     padding: 20,
