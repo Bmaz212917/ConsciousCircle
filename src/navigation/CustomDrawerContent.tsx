@@ -67,12 +67,18 @@ const CustomDrawerContent = props => {
           <Icon name="person-outline" size={24} color="black" />
           <Text style={styles.menuItemText}>My Profile</Text>
         </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.menuItem}
+          onPress={() => props.navigation.navigate('UpcomingSessions')}>
+          <Icon name="person-outline" size={24} color="black" />
+          <Text style={styles.menuItemText}>Upcoming Sessions</Text>
+        </TouchableOpacity>
 
         <TouchableOpacity
           style={styles.menuItem}
-          onPress={() => props.navigation.navigate('Coach')}>
+          onPress={() => props.navigation.navigate('CoachListing')}>
           <Icon name="people-outline" size={24} color="black" />
-          <Text style={styles.menuItemText}>Coach</Text>
+          <Text style={styles.menuItemText}>Coaches</Text>
         </TouchableOpacity>
 
         <TouchableOpacity

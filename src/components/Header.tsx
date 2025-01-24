@@ -5,8 +5,11 @@ import {
   StyleSheet,
   TouchableOpacity,
   TextInput,
+  Image,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import Fonts from '../assets/fonts';
+import {Colors} from '../assets/Colors';
 
 const Header = ({
   title,
@@ -15,6 +18,7 @@ const Header = ({
   onLeftPress,
   onSearch,
   onRightPress,
+  showLogo = false,
 }) => {
   const [isSearching, setIsSearching] = useState(false);
   const [searchText, setSearchText] = useState('');
@@ -63,8 +67,20 @@ const Header = ({
           </TouchableOpacity>
 
           {/* Title */}
-          <Text style={styles.title}>{title}</Text>
-
+          {!showLogo ? (
+            <Text style={styles.title}>{title}</Text>
+          ) : (
+            <Image
+              source={require('../assets/icons/logo.png')}
+              tintColor={'black'}
+              style={{
+                width: 120,
+                height: 70,
+                resizeMode: 'contain',
+                alignSelf: 'center',
+              }}
+            />
+          )}
           {/* Right Icon */}
           <TouchableOpacity
             onPress={rightIcon === 'search' ? handleSearchToggle : onRightPress}
@@ -82,7 +98,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingHorizontal: 15,
+    paddingHorizontal: 10,
     height: 60,
   },
 
@@ -100,7 +116,8 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 18,
-    fontWeight: 'bold',
+    fontFamily: Fonts.Medium,
+    color: Colors.goshawkGrey,
   },
   searchInputFull: {
     flex: 1,

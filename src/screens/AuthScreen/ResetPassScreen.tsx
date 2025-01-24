@@ -57,7 +57,7 @@ const ResetPassScreen = () => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <View>
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <Image
@@ -87,7 +87,7 @@ const ResetPassScreen = () => {
         containerStyle={{backgroundColor: 'black', marginTop: 20}}
         isLoading={isLoading}
       />
-    </SafeAreaView>
+    </View>
   );
 };
 
@@ -95,12 +95,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     // justifyContent: 'center',
-    marginHorizontal: 20,
+    paddingHorizontal: 20,
+    backgroundColor: 'white',
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
     marginVertical: 10,
+    marginTop: 30,
   },
   input: {
     height: 50,

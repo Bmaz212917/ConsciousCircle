@@ -13,50 +13,21 @@ import firestore from '@react-native-firebase/firestore';
 import {useNavigation} from '@react-navigation/native';
 import Header from '../../../components/Header';
 import EventListItem from '../../../components/EventListItem';
+import CoachingListItem from '../../../components/CoachingListItem';
+import {Colors} from '../../../assets/Colors';
+import Fonts from '../../../assets/fonts';
+import {DummyCoach, DummyEvent} from '../../../Utils/DummyData';
 
 const AdminHomeScreen = () => {
   const navigation = useNavigation();
-  const [events, setEvents] = useState([
-    {
-      title: 'International Band Music',
-      location: '36 Guild Street London, UK ',
-      date: new Date(),
-      type: 'FREE',
-      numOfMembers: 20,
-      image: require('../../../assets/images/yoga.png'),
-      description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud... Read More',
-    },
-  ]);
-  const [sessions, setSessions] = useState([]);
+  const [events, setEvents] = useState(DummyEvent);
+  const [sessions, setSessions] = useState(DummyCoach);
   const [fabOpen, setFabOpen] = useState(false);
   const [activeTab, setActiveTab] = useState(1);
   const [searchQuery, setSearchQuery] = useState('');
 
-  const animation = React.useRef(new Animated.Value(0)).current; // Ensure proper initialization
+  const animation = React.useRef(new Animated.Value(0)).current;
 
-  // Fetch Events and Sessions from Firestore
-  //   useEffect(() => {
-  //     const fetchData = async () => {
-  //       try {
-  //         const eventsSnapshot = await firestore().collection('events').get();
-  //         const sessionsSnapshot = await firestore().collection('sessions').get();
-
-  //         setEvents(
-  //           eventsSnapshot.docs.map(doc => ({id: doc.id, ...doc.data()})),
-  //         );
-  //         setSessions(
-  //           sessionsSnapshot.docs.map(doc => ({id: doc.id, ...doc.data()})),
-  //         );
-  //       } catch (error) {
-  //         console.error('Error fetching data:', error);
-  //       }
-  //     };
-
-  //     fetchData();
-  //   }, []);
-
-  // Toggle FAB animation
   const toggleFab = () => {
     const toValue = fabOpen ? 0 : 1;
 
@@ -116,6 +87,7 @@ const AdminHomeScreen = () => {
     setSearchQuery(query);
     console.log('Search Query:', query);
   };
+
   return (
     <View style={styles.container}>
       <Header
@@ -124,6 +96,7 @@ const AdminHomeScreen = () => {
         title={'Consious Circle'}
         onLeftPress={() => navigation.openDrawer()}
         onSearch={handleSearch}
+        showLogo
       />
       <View style={styles.sectionContainer}>
         <TouchableOpacity
@@ -134,14 +107,20 @@ const AdminHomeScreen = () => {
         <TouchableOpacity
           onPress={() => setActiveTab(2)}
           style={activeTab == 2 ? styles.activeSection : styles.section}>
-          <Text style={styles.heading}>Sessions</Text>
+          <Text style={styles.heading}>Coaching</Text>
         </TouchableOpacity>
       </View>
       <FlatList
-        data={events}
+        data={activeTab == '1' ? events : sessions}
         keyExtractor={item => item?.id}
         style={styles.listStyle}
-        renderItem={({item,index}) => <EventListItem data={item} key={index.toString()} />}
+        renderItem={({item, index}) =>
+          activeTab == '1' ? (
+            <EventListItem data={item} key={index.toString()} />
+          ) : (
+            <CoachingListItem data={item} key={index.toString()} />
+          )
+        }
       />
       {/* Floating Action Button */}
       <View style={styles.fabContainer}>
@@ -176,13 +155,13 @@ const AdminHomeScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // padding: 10,
     backgroundColor: '#fff',
   },
   heading: {
-    fontSize: 20,
-    fontWeight: 'bold',
+    fontSize: 16,
+    fontFamily: Fonts.Medium,
     marginVertical: 10,
+    color: Colors.goshawkGrey,
   },
   sectionContainer: {
     flexDirection: 'row',
@@ -209,7 +188,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   fabMain: {
-    backgroundColor: '#6200EE',
+    backgroundColor: Colors.black,
     width: 56,
     height: 56,
     borderRadius: 28,
@@ -219,7 +198,7 @@ const styles = StyleSheet.create({
   },
   fabButton: {
     position: 'absolute',
-    backgroundColor: '#6200EE',
+    backgroundColor: Colors.black,
     width: 48,
     height: 48,
     borderRadius: 24,

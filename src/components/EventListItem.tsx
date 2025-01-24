@@ -3,6 +3,8 @@ import React from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {Colors} from '../assets/Colors';
 import {useNavigation} from '@react-navigation/native';
+import Fonts from '../assets/fonts';
+import AttendeesList from './AttendeesList';
 
 const EventListItem = ({data}) => {
   const navigation = useNavigation();
@@ -15,12 +17,20 @@ const EventListItem = ({data}) => {
     <TouchableOpacity onPress={onEventPress} style={styles.listItem}>
       <Image source={data?.image} style={styles.imageStyle} />
       <View style={styles.detailContainer}>
-        <Text style={styles.itemTitle}>{data?.title}</Text>
+        <Text ellipsizeMode="tail" numberOfLines={1} style={styles.itemTitle}>
+          {data?.title}
+        </Text>
         <View style={styles.locationView}>
-          <Icon name="location" size={18} color="#444444" />
-          <Text style={styles.locationText}>{data?.location}</Text>
+          <Icon name="location-sharp" size={16} color={Colors.goshawkGrey} />
+          <Text numberOfLines={2} style={styles.locationText}>
+            {data?.location}
+          </Text>
         </View>
+        {data?.attendees?.length > 0 && (
+          <AttendeesList attendees={data?.attendees} />
+        )}
       </View>
+
       <View style={styles.dateTypeContainer}>
         <View style={styles.dateContainer}>
           <Text style={styles.itemDetails}>
@@ -34,8 +44,25 @@ const EventListItem = ({data}) => {
             })}
           </Text>
         </View>
-        <View style={styles.typeContainer}>
-          <Text style={styles.typeText}>{data?.type}</Text>
+        <View
+          style={[
+            styles.typeContainer,
+            {
+              backgroundColor:
+                data?.type == 'FREE'
+                  ? 'rgba(255, 255, 255, 0.8)'
+                  : 'rgba(253, 186, 9, 0.8)',
+            },
+          ]}>
+          <Text
+            style={[
+              styles.typeText,
+              {
+                color: data?.type == 'FREE' ? 'black' : 'white',
+              },
+            ]}>
+            {data?.type}
+          </Text>
         </View>
       </View>
     </TouchableOpacity>
@@ -51,19 +78,24 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     marginBottom: 10,
     elevation: 2,
+    paddingBottom: 5,
   },
   itemTitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
+    fontSize: 18,
+    fontFamily: Fonts.Medium,
+    color: 'black',
   },
   locationView: {
     flexDirection: 'row',
-    paddingVertical: 10,
-    alignItems: 'center',
+    paddingVertical: 5,
+    alignItems: 'flex-start',
   },
   locationText: {
     color: Colors.goshawkGrey,
     fontSize: 14,
+    fontFamily: Fonts.Medium,
+    marginLeft: 5,
+    marginTop: -2,
   },
   imageStyle: {
     width: '98%',
@@ -74,32 +106,35 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   itemDetails: {
-    fontSize: 16,
+    fontSize: 13,
     color: Colors.black,
     paddingHorizontal: 10,
+    fontFamily: Fonts.Medium,
   },
   dateTypeContainer: {
     position: 'absolute',
     top: 20,
-    left: 40,
+    left: 30,
     flexDirection: 'row',
-    width: '80%',
+    width: '90%',
     justifyContent: 'space-between',
     alignItems: 'center',
   },
   dateContainer: {
-    backgroundColor: 'rgba(255, 255, 255, 0.7)',
+    backgroundColor: 'rgba(255, 255, 255, 0.8)',
     alignItems: 'center',
     paddingVertical: 5,
   },
   typeContainer: {
-    backgroundColor: 'rgba(253, 186, 9, 0.7)',
+    backgroundColor: 'rgba(253, 186, 9, 0.8)',
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: 15,
-    paddingVertical: 10,
+    paddingVertical: 8,
   },
   typeText: {
     color: 'white',
+    fontFamily: Fonts.Medium,
+    fontSize: 14,
   },
 });

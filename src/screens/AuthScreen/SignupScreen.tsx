@@ -1,5 +1,13 @@
 import React, {useState} from 'react';
-import {View, Text, Alert, StyleSheet} from 'react-native';
+import {
+  View,
+  Text,
+  Alert,
+  StyleSheet,
+  ImageBackground,
+  ScrollView,
+  Image,
+} from 'react-native';
 import auth from '@react-native-firebase/auth';
 import CommonTextInput from '../../components/CommonTextInput';
 import CommonButton from '../../components/CommonButton';
@@ -75,81 +83,100 @@ const SignUpScreen = ({navigation}) => {
       // Redirect to Login screen
     } catch (error) {
       setIsLoading(false);
-      Alert.alert('Error', error.message);
+      Alert.alert('Error', error?.message);
     }
   };
 
   return (
     <View style={styles.container}>
-      <View style={styles.margin}>
-        <CommonTextInput
-          iconSource={require('../../assets/icons/Profile.png')}
-          placeholder="Full Name"
-          value={name}
-          onChangeText={setName}
+      <ImageBackground
+        source={require('../../assets/images/Login.png')}
+        style={styles.backgroundImage}>
+        <Image
+          source={require('../../assets/icons/logowhite.png')}
+          style={styles.logoStyle}
         />
-      </View>
+        <ScrollView contentContainerStyle={styles.scrollStyle}>
+          <View style={styles.margin}>
+            <CommonTextInput
+              iconSource={require('../../assets/icons/Profile.png')}
+              placeholder="Full Name"
+              value={name}
+              onChangeText={setName}
+            />
+          </View>
 
-      <View style={styles.margin}>
-        <CommonTextInput
-          iconSource={require('../../assets/icons/Mail.png')}
-          placeholder="Email"
-          value={email}
-          onChangeText={setEmail}
-          keyboardType="email-address"
-        />
-      </View>
-      <View style={styles.margin}>
-        <CommonTextInput
-          iconSource={require('../../assets/icons/Call.png')}
-          placeholder="Phone Number"
-          value={phone}
-          onChangeText={setPhone}
-          keyboardType="phone-pad"
-        />
-      </View>
+          <View style={styles.margin}>
+            <CommonTextInput
+              iconSource={require('../../assets/icons/Mail.png')}
+              placeholder="Email"
+              value={email}
+              onChangeText={setEmail}
+              keyboardType="email-address"
+            />
+          </View>
+          <View style={styles.margin}>
+            <CommonTextInput
+              iconSource={require('../../assets/icons/Call.png')}
+              placeholder="Phone Number"
+              value={phone}
+              onChangeText={setPhone}
+              keyboardType="phone-pad"
+            />
+          </View>
 
-      <View style={styles.margin}>
-        <CommonTextInput
-          iconSource={require('../../assets/icons/Password.png')}
-          placeholder="Your Password"
-          value={password}
-          onChangeText={setPassword}
-          secureTextEntry
-          // style={styles.input}
-        />
-      </View>
-      <View style={styles.margin}>
-        <CommonTextInput
-          iconSource={require('../../assets/icons/Password.png')}
-          placeholder="Confirm Password"
-          value={confirmPassword}
-          onChangeText={setConfirmPassword}
-          secureTextEntry
-          // style={styles.input}
-        />
-      </View>
-      <CommonButton
-        containerStyle={styles.buttonStyle}
-        onPress={handleSignUp}
-        label="SIGN UP"
-        isLoading={isLoading}
-      />
-      <Text
-        style={styles.memberText}
-        onPress={() => navigation.navigate('Login')}>
-        Already have an account? Login
-      </Text>
+          <View style={styles.margin}>
+            <CommonTextInput
+              iconSource={require('../../assets/icons/Password.png')}
+              placeholder="Your Password"
+              value={password}
+              onChangeText={setPassword}
+              secureTextEntry
+            />
+          </View>
+          <View style={styles.margin}>
+            <CommonTextInput
+              iconSource={require('../../assets/icons/Password.png')}
+              placeholder="Confirm Password"
+              value={confirmPassword}
+              onChangeText={setConfirmPassword}
+              secureTextEntry
+            />
+          </View>
+          <CommonButton
+            containerStyle={styles.buttonStyle}
+            onPress={handleSignUp}
+            label="SIGN UP"
+            isLoading={isLoading}
+          />
+          <Text
+            style={styles.memberText}
+            onPress={() => navigation.navigate('Login')}>
+            Already have an account? Login
+          </Text>
+        </ScrollView>
+      </ImageBackground>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    padding: 20,
+    // padding: 20,
     flex: 1,
     justifyContent: 'center',
     backgroundColor: 'black',
+  },
+
+  logoStyle: {
+    width: 200,
+    height: 50,
+    alignSelf: 'center',
+    marginVertical: 20,
+  },
+  scrollStyle: {
+    paddingTop: 120,
+    justifyContent: 'center',
   },
   input: {marginBottom: 10, fontSize: 16},
   link: {marginTop: 20, color: 'blue', textAlign: 'center'},
@@ -162,6 +189,10 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBlockColor: 'white',
     marginTop: 20,
+  },
+  backgroundImage: {
+    flex: 1,
+    paddingHorizontal: 15,
   },
 });
 

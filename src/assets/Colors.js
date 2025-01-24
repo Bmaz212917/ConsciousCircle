@@ -4,4 +4,5 @@ export const Colors = {
   babyWhale: 'rgba(80, 85, 136, 0.06)',
   desiredDawn: '#D8D8D8',
   ardcoat: '#E4DFDF',
+  antiWhite: '#f2f2f2',
 };
