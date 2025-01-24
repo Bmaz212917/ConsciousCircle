@@ -1,10 +1,11 @@
 import {Image, ScrollView, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import Header from '../../../components/Header';
-import {Colors} from '../../../assets/Colors';
+import Header from '../../components/Header';
+import {Colors} from '../../assets/Colors';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {useNavigation} from '@react-navigation/native';
-import CommonButton from '../../../components/CommonButton';
+import CommonButton from '../../components/CommonButton';
+import ReadMoreText from '../../components/ReadMoreText';
 
 const EventDetailScreen = props => {
   const navigation = useNavigation();
@@ -51,7 +52,11 @@ const EventDetailScreen = props => {
           </View>*/}
           <View style={styles.descContainer}>
             <Text style={styles.descTitleText}>Description</Text>
-            <Text style={styles.descText}>{data?.description}</Text>
+            <ReadMoreText
+              style={styles.descText}
+              text={data?.description}
+              numberOfLines={15}
+            />
           </View>
         </View>
       </ScrollView>
@@ -82,12 +87,14 @@ const styles = StyleSheet.create({
   locationDateContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
+    paddingVertical: 10,
+    // alignItems: 'flex-start',
   },
   locationView: {
     flexDirection: 'row',
-    paddingVertical: 10,
-    alignItems: 'center',
+    // paddingVertical: 10,
+    alignItems: 'flex-start',
+    flex: 1,
   },
   locationText: {
     color: Colors.goshawkGrey,

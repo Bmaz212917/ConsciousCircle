@@ -8,6 +8,7 @@ import {
   ViewStyle,
   ActivityIndicator,
 } from 'react-native';
+import Fonts from '../assets/fonts';
 
 interface CommonButtonProps extends TextProps {
   textStyle?: TextStyle; // Source of the icon image
@@ -53,7 +54,7 @@ const styles = StyleSheet.create({
   textStyle: {
     fontSize: 18,
     color: 'black',
-    fontFamily: 'SourceSerif4Italic', // Use the font family name
+    fontFamily: Fonts.Medium,
   },
 });
 

@@ -9,6 +9,8 @@ import {
   Image,
   Alert,
   ScrollView,
+  Dimensions,
+  useWindowDimensions,
 } from 'react-native';
 import DatePicker from 'react-native-date-picker';
 import {Menu} from 'react-native-paper';
@@ -19,6 +21,8 @@ import * as ImagePicker from 'react-native-image-picker';
 import Header from '../../../components/Header';
 import CommonButton from '../../../components/CommonButton';
 import ImagePickerModal from '../../../components/ImagePickerModal';
+import Fonts from '../../../assets/fonts';
+import {Colors} from '../../../assets/Colors';
 
 const CreateEventScreen = ({navigation}) => {
   const [eventName, setEventName] = useState('');
@@ -29,10 +33,25 @@ const CreateEventScreen = ({navigation}) => {
   const [imageUri, setImageUri] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
   const [datePickerVisible, setDatePickerVisible] = useState(false);
+  const [timePickerVisible, setTimePickerVisible] = useState(false);
+  const [selectedTime, setSelectedTime] = useState(new Date());
   const [menuVisible, setMenuVisible] = useState(false);
+  const {width, height} = useWindowDimensions();
 
   const eventTypes = ['Free', 'Premium'];
+  const [duration, setDuration] = useState(''); // Numeric input
+  const [unit, setUnit] = useState(''); // Selected unit: Hours or Minutes
+  const [durationModalVisible, setDurationModalVisible] = useState(false); // Modal visibility
 
+  const handleConfirmUnit = selectedUnit => {
+    setUnit(selectedUnit);
+    setDurationModalVisible(false);
+  };
+
+  const handleDurationChange = text => {
+    const numericValue = text.replace(/[^0-9]/g, ''); // Ensure only numbers
+    setDuration(numericValue);
+  };
   const options = {
     mediaType: 'photo',
     maxWidth: 300,
@@ -140,6 +159,10 @@ const CreateEventScreen = ({navigation}) => {
           visible={menuVisible}
           onDismiss={() => setMenuVisible(false)}
           anchorPosition="bottom"
+          contentStyle={{
+            backgroundColor: '#fff',
+            width: width - 40, // Set a fixed width for the menu
+          }}
           anchor={
             <TouchableOpacity
               style={styles.menuButton}
@@ -172,9 +195,6 @@ const CreateEventScreen = ({navigation}) => {
               day: 'numeric',
               month: 'short',
               year: 'numeric',
-              hour: 'numeric',
-              minute: '2-digit',
-              hour12: true,
             })}
           </Text>
         </TouchableOpacity>
@@ -182,14 +202,49 @@ const CreateEventScreen = ({navigation}) => {
           modal
           open={datePickerVisible}
           date={eventDate}
-          mode="datetime"
+          mode="date"
           onConfirm={date => {
             setEventDate(date);
             setDatePickerVisible(false);
           }}
           onCancel={() => setDatePickerVisible(false)}
         />
-
+        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+          <TouchableOpacity
+            style={styles.timePickerButton}
+            onPress={() => setTimePickerVisible(true)}>
+            <Text style={styles.datePickerText}>
+              {selectedTime?.toLocaleTimeString('en-US', {
+                hour: 'numeric',
+                minute: '2-digit',
+                hour12: true,
+              })}
+            </Text>
+          </TouchableOpacity>
+          <DatePicker
+            modal
+            open={timePickerVisible}
+            date={selectedTime}
+            mode="time" // Only for time
+            onConfirm={time => {
+              setSelectedTime(time);
+              setTimePickerVisible(false);
+            }}
+            onCancel={() => setTimePickerVisible(false)}
+          />
+          <TouchableOpacity style={{flex: 1, marginLeft: 10}}>
+            <TextInput
+              style={styles.input}
+              placeholder="Enter Duration"
+              enterKeyHint="done"
+              keyboardType="numeric" // Ensures numeric keyboard
+              value={duration ? `${duration} ${unit}` : ''} // Show number with unit
+              onChangeText={handleDurationChange}
+              onBlur={() => setDurationModalVisible(true)} // Open modal on focus
+              // editable={!unit} // Prevent editing when unit is selected
+            />
+          </TouchableOpacity>
+        </View>
         {/* Event Description */}
 
         <TextInput
@@ -214,13 +269,39 @@ const CreateEventScreen = ({navigation}) => {
           onChooseFromGallery={chooseFromGallery}
         />
       </ScrollView>
+      <Modal
+        transparent={true}
+        visible={durationModalVisible}
+        animationType="slide"
+        onRequestClose={() => setDurationModalVisible(false)}>
+        <View style={styles.modalContainer}>
+          <View style={styles.modalContent}>
+            <TouchableOpacity
+              style={styles.modalButton}
+              onPress={() => handleConfirmUnit('Hours')}>
+              <Text style={styles.modalButtonText}>Hours</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.modalButton}
+              onPress={() => handleConfirmUnit('Minutes')}>
+              <Text style={styles.modalButtonText}>Minutes</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.modalButton}
+              onPress={() => setDurationModalVisible(false)}>
+              <Text style={[styles.modalButtonText, {color: 'red'}]}>
+                Cancel
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     padding: 20,
     backgroundColor: '#fff',
   },
@@ -237,6 +318,7 @@ const styles = StyleSheet.create({
   imageUploadText: {
     color: '#aaa',
     fontSize: 16,
+    fontFamily: Fonts.Medium,
   },
   imagePreview: {
     width: '100%',
@@ -245,22 +327,25 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 16,
-    fontWeight: 'bold',
     marginBottom: 10,
+    fontFamily: Fonts.Medium,
+    color: Colors.goshawkGrey,
   },
   input: {
     height: 50,
     borderWidth: 1,
-    borderColor: '#ddd',
+    borderColor: Colors.ardcoat,
     borderRadius: 8,
     paddingHorizontal: 10,
     marginBottom: 20,
     fontSize: 16,
     paddingVertical: 10,
+    fontFamily: Fonts.Medium,
   },
   textArea: {
     height: 100,
     textAlignVertical: 'top',
+    fontFamily: Fonts.Medium,
   },
   datePickerButton: {
     height: 50,
@@ -271,9 +356,22 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     marginVertical: 15,
   },
+
+  timePickerButton: {
+    height: 50,
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: '#ddd',
+    borderRadius: 8,
+    paddingHorizontal: 10,
+    marginVertical: 15,
+    marginTop: 0,
+    flex: 1,
+  },
   datePickerText: {
     fontSize: 16,
-    color: '#555',
+    color: Colors.goshawkGrey,
+    fontFamily: Fonts.Medium,
   },
   publishButton: {
     backgroundColor: '#6200EE',
@@ -285,7 +383,7 @@ const styles = StyleSheet.create({
   publishButtonText: {
     color: '#fff',
     fontSize: 16,
-    fontWeight: 'bold',
+    fontFamily: Fonts.Medium,
   },
   menuButton: {
     flexDirection: 'row',
@@ -299,7 +397,8 @@ const styles = StyleSheet.create({
   },
   menuButtonText: {
     fontSize: 16,
-    color: '#555',
+    color: Colors.goshawkGrey,
+    fontFamily: Fonts.Medium,
   },
   modalContainer: {
     flex: 1,
@@ -320,6 +419,7 @@ const styles = StyleSheet.create({
   modalButtonText: {
     fontSize: 16,
     marginLeft: 10,
+    fontFamily: Fonts.Medium,
   },
 });
 

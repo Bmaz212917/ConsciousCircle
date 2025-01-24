@@ -15,6 +15,9 @@ import {useNavigation} from '@react-navigation/native';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import CommonButton from '../../../components/CommonButton';
 import ImagePickerModal from '../../../components/ImagePickerModal';
+import {Checkbox} from 'react-native-paper';
+import {Colors} from '../../../assets/Colors';
+import Fonts from '../../../assets/fonts';
 
 const AddCoachScreen = () => {
   const navigation = useNavigation();
@@ -153,14 +156,15 @@ const AddCoachScreen = () => {
             key={category}
             style={styles.checkboxContainer}
             onPress={() => toggleCategory(category)}>
-            <Icon
-              name={
-                coachDetails.category.includes(category)
-                  ? 'checkbox-outline'
-                  : 'square-outline'
+            <Checkbox.Android
+              key={category}
+              status={
+                coachDetails?.category?.includes(category)
+                  ? 'checked'
+                  : 'unchecked'
               }
-              size={20}
-              color="#000"
+              color={Colors.goshawkGrey}
+              onPress={() => toggleCategory(category)}
             />
             <Text style={styles.checkboxLabel}>{category}</Text>
           </TouchableOpacity>
@@ -178,7 +182,7 @@ const AddCoachScreen = () => {
           onPress={handleSave}
           label="SAVE"
           containerStyle={{backgroundColor: 'black'}}
-          textStyle={{color: 'white'}}
+          textStyle={{color: 'white', fontFamily: Fonts.Medium}}
         />
         <ImagePickerModal
           visible={modalVisible}
@@ -198,7 +202,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 18,
-    fontWeight: 'bold',
+    fontFamily: Fonts.Medium,
     marginVertical: 10,
     marginTop: 20,
   },
@@ -227,10 +231,12 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     marginBottom: 15,
     paddingHorizontal: 10,
+    fontFamily: Fonts.Medium,
   },
   label: {
     fontSize: 16,
     marginBottom: 10,
+    fontFamily: Fonts.Medium,
   },
   checkboxContainer: {
     flexDirection: 'row',
@@ -238,11 +244,12 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   checkboxLabel: {
-    marginLeft: 10,
     fontSize: 14,
+    fontFamily: Fonts.Medium,
   },
   textArea: {
     height: 100,
+    fontFamily: Fonts.Medium,
   },
   saveButton: {
     backgroundColor: '#000',
@@ -254,6 +261,7 @@ const styles = StyleSheet.create({
   saveButtonText: {
     color: '#fff',
     fontSize: 16,
+    fontFamily: Fonts.Medium,
   },
   modalContainer: {
     flex: 1,
@@ -265,6 +273,7 @@ const styles = StyleSheet.create({
     // marginHorizontal: 30,
     borderRadius: 8,
     padding: 20,
+    fontFamily: Fonts.Medium,
   },
   modalButton: {
     flexDirection: 'row',
@@ -274,6 +283,7 @@ const styles = StyleSheet.create({
   modalButtonText: {
     marginLeft: 10,
     fontSize: 16,
+    fontFamily: Fonts.Medium,
   },
 });
 

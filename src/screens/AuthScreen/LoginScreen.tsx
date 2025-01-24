@@ -17,11 +17,13 @@ import {useNavigation} from '@react-navigation/native';
 import auth from '@react-native-firebase/auth';
 import {useAuth} from '../../context/AuthProvider';
 import EmailIcon from '../../assets/icons/email.svg';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const LoginScreen = () => {
   const navigation = useNavigation();
   const [email, setEmail] = useState('Test1@yopmail.com');
   const [password, setPassword] = useState('Test@123');
+  const [showPass, setShowPass] = useState(false);
   const [loading, setLoading] = useState(false);
   const {setUserRole, setUser} = useAuth(); // Access context functions
   const [isLoading, setIsLoading] = useState(false);
@@ -79,14 +81,14 @@ const LoginScreen = () => {
 
   return (
     <View style={{flex: 1}}>
-      <ScrollView contentContainerStyle={styles.mainContainer}>
-        <ImageBackground
-          source={require('../../assets/icons/loginbg.png')}
-          style={styles.backgroundImage}>
-          <Image
-            source={require('../../assets/icons/logo.png')}
-            style={styles.logoStyle}
-          />
+      <ImageBackground
+        source={require('../../assets/images/Login.png')}
+        style={styles.backgroundImage}>
+        <Image
+          source={require('../../assets/icons/logowhite.png')}
+          style={styles.logoStyle}
+        />
+        <ScrollView contentContainerStyle={styles.mainContainer}>
           <View style={styles.formContainer}>
             <CommonTextInput
               placeholder="abc@email.com"
@@ -107,12 +109,15 @@ const LoginScreen = () => {
                 style={styles.passInput}
                 placeholder="Your password"
                 placeholderTextColor="white"
-                secureTextEntry
+                secureTextEntry={!showPass}
                 onChangeText={setPassword}
                 value={password}
               />
-              <Image
-                source={require('../../assets/icons/Password.png')}
+              <Icon
+                onPress={() => setShowPass(!showPass)}
+                name={!showPass ? 'eye-off-sharp' : 'eye-sharp'}
+                size={20}
+                color="white"
                 style={styles.eyeIcon}
               />
             </View>
@@ -134,8 +139,8 @@ const LoginScreen = () => {
               </TouchableOpacity>
             </View>
           </View>
-        </ImageBackground>
-      </ScrollView>
+        </ScrollView>
+      </ImageBackground>
     </View>
   );
 };
@@ -149,7 +154,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
   },
   logoStyle: {
-    width: 150,
+    width: 200,
     height: 50,
     alignSelf: 'center',
     marginVertical: 20,

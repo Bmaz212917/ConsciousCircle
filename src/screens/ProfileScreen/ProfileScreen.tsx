@@ -10,12 +10,15 @@ import {
 import Icon from 'react-native-vector-icons/Ionicons';
 import Header from '../../components/Header';
 import {Colors} from '../../assets/Colors';
+import Fonts from '../../assets/fonts';
 
 const ProfileScreen = ({navigation}) => {
   const profile = {
     name: 'Tamim Ikram',
     dob: '10 June 1995',
     address: '36 Guild Street London, UK',
+    phone: '+1 234 567 890',
+    email: 'tamimikram@gmail.com',
     aboutMe:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
     profileImage: 'https://i.imgur.com/6VBx3io.png', // Placeholder image
@@ -47,12 +50,27 @@ const ProfileScreen = ({navigation}) => {
 
         {/* Profile Information */}
         <Text style={styles.name}>{profile.name}</Text>
+        <View style={styles.phoneMailContainer}>
+          <View style={styles.phoneContainer}>
+            <Icon name="call-outline" size={20} color={Colors.goshawkGrey} />
+            <Text style={styles.infoText}>{profile.phone}</Text>
+          </View>
+          <View style={styles.mailContainer}>
+            <Icon name="mail-outline" size={20} color={Colors.goshawkGrey} />
+            <Text
+              ellipsizeMode="tail"
+              numberOfLines={1}
+              style={styles.infoText}>
+              {profile.email}
+            </Text>
+          </View>
+        </View>
         <View style={styles.infoRow}>
-          <Icon name="calendar-outline" size={20} color="#555" />
+          <Icon name="calendar-clear-outline" size={20} color="#555" />
           <Text style={styles.infoText}>{profile.dob}</Text>
         </View>
         <View style={styles.infoRow}>
-          <Icon name="location-outline" size={20} color="#555" />
+          <Icon name="location-sharp" size={20} color="#555" />
           <Text style={styles.infoText}>{profile.address}</Text>
         </View>
         <View style={styles.aboutMeContainer}>
@@ -74,7 +92,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   imageContainer: {
-    marginVertical: 20,
+    marginVertical: 0,
   },
   profileImage: {
     width: 120,
@@ -83,7 +101,7 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: 22,
-    fontWeight: 'bold',
+    fontFamily: Fonts.Medium,
     marginTop: 10,
   },
   infoRow: {
@@ -92,26 +110,53 @@ const styles = StyleSheet.create({
     marginVertical: 5,
   },
   infoText: {
-    marginLeft: 10,
-    fontSize: 16,
-    color: '#555',
+    marginLeft: 5,
+    fontSize: 14,
+    fontFamily: Fonts.Medium,
+    color: Colors.goshawkGrey,
   },
   sectionTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
+    fontSize: 20,
+    color: Colors.goshawkGrey,
     marginTop: 20,
     alignSelf: 'flex-start',
+    fontFamily: Fonts.Medium,
   },
   aboutText: {
     fontSize: 16,
-    color: '#555',
+    color: Colors.goshawkGrey,
     marginTop: 10,
     textAlign: 'justify',
+    fontFamily: Fonts.Medium,
   },
   aboutMeContainer: {
     borderTopWidth: 1,
     marginTop: 20,
     borderColor: Colors.desiredDawn,
+    borderTopColor: Colors.ardcoat,
+  },
+  phoneMailContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+    marginVertical: 10,
+    alignSelf: 'center',
+  },
+  phoneContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    flex: 1,
+    justifyContent: 'flex-end',
+    marginRight: 20,
+  },
+  mailContainer: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    borderLeftWidth: 1,
+    flex: 1,
+    justifyContent: 'flex-start',
+    borderColor: Colors.ardcoat,
+    paddingLeft: 10,
   },
 });
 

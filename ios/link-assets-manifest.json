@@ -1,0 +1,153 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "src/assets/icons/Back.png",
+      "sha1": "7128f7d0952d4ef08a3d632a7329f4bd8693a2ff"
+    },
+    {
+      "path": "src/assets/icons/Back@2x.png",
+      "sha1": "54b32c702e13f7a120e9edc5feed4a5634509724"
+    },
+    {
+      "path": "src/assets/icons/Back@3x.png",
+      "sha1": "48c282864953b8457af6ee91cd91316270f4f61d"
+    },
+    {
+      "path": "src/assets/icons/Call.png",
+      "sha1": "de9f4b4d947b59a4261261389e53ef10dfe99355"
+    },
+    {
+      "path": "src/assets/icons/Call@2x.png",
+      "sha1": "61c83d8f0646b2f4053458397f8beebae5229c7e"
+    },
+    {
+      "path": "src/assets/icons/Call@3x.png",
+      "sha1": "d9f73c8f9d3808e3ba8f11092ae70b80537dabcb"
+    },
+    {
+      "path": "src/assets/icons/Mail.png",
+      "sha1": "8bad2188390bead12a0f829d752b7b9e0840c141"
+    },
+    {
+      "path": "src/assets/icons/Mail@2x.png",
+      "sha1": "cd61afbba634fd3c932105cbd73bcc780b08d754"
+    },
+    {
+      "path": "src/assets/icons/Mail@3x.png",
+      "sha1": "ffa6ea18df89a7e867a410ddff623742c3099f44"
+    },
+    {
+      "path": "src/assets/icons/Password.png",
+      "sha1": "5e62f7ffec5362fe205af4043b2b9cfa18ca808d"
+    },
+    {
+      "path": "src/assets/icons/Password@2x.png",
+      "sha1": "ece2a73a0538346239bc7346feaccb739a80bf00"
+    },
+    {
+      "path": "src/assets/icons/Password@3x.png",
+      "sha1": "9742fca5564775b908e4584c7f12d15e23556e77"
+    },
+    {
+      "path": "src/assets/icons/Profile.png",
+      "sha1": "f1303c824188e8f414e761a4154f02bf972538e9"
+    },
+    {
+      "path": "src/assets/icons/Profile@2x.png",
+      "sha1": "25598863c490e4432237114bbc91c76c2bf6e78e"
+    },
+    {
+      "path": "src/assets/icons/Profile@3x.png",
+      "sha1": "5c47c2f2834a8d74f5d3aef46a982dda7bb240d5"
+    },
+    {
+      "path": "src/assets/icons/email.svg",
+      "sha1": "856ac90f355397be4b5b3f5a124a3d4b5d39c381"
+    },
+    {
+      "path": "src/assets/icons/loginbg.png",
+      "sha1": "b29ccc28a1c5f8beb7d745a47b1b028e92be7242"
+    },
+    {
+      "path": "src/assets/icons/logo.png",
+      "sha1": "4f3cdb9fa3594315319a0dbe6b577bd29144565e"
+    },
+    {
+      "path": "src/assets/icons/pass.png",
+      "sha1": "a154c0d3e72069c41e2292790519d3af40e0519c"
+    },
+    {
+      "path": "src/assets/icons/pass@2x.png",
+      "sha1": "3b34c009e6591907e622672b63a9da6668ffaa93"
+    },
+    {
+      "path": "src/assets/icons/pass@3x.png",
+      "sha1": "aab4cc9105257a8a5d5cad678b3d5de7ce52274c"
+    },
+    {
+      "path": "assets/fonts/SourceSerif4Black.ttf",
+      "sha1": "a52d64a33732656830aaf5d73df7623795c33057"
+    },
+    {
+      "path": "assets/fonts/SourceSerif4BlackItalic.ttf",
+      "sha1": "1d43ff5e90f21d69cb3f6c438faf739b6d76418b"
+    },
+    {
+      "path": "assets/fonts/SourceSerif4Bold.ttf",
+      "sha1": "33e8c476d3ec18bef4995f587f2479ac37e5c3b3"
+    },
+    {
+      "path": "assets/fonts/SourceSerif4BoldItalic.ttf",
+      "sha1": "63d2762fc8807d837b7a3bb9c7908904474b0a0f"
+    },
+    {
+      "path": "assets/fonts/SourceSerif4ExtraBold.ttf",
+      "sha1": "b9939134d7568450818e59c19a0901bacd7144cc"
+    },
+    {
+      "path": "assets/fonts/SourceSerif4ExtraBoldItalic.ttf",
+      "sha1": "00ae35c57f6d8f9c5dbcddb31f017d2354aeaff6"
+    },
+    {
+      "path": "assets/fonts/SourceSerif4ExtraLight.ttf",
+      "sha1": "4da533d4307408e81b9285b6e15bccf7ee703f67"
+    },
+    {
+      "path": "assets/fonts/SourceSerif4ExtraLightItalic.ttf",
+      "sha1": "9de6b684cddf009a915ef093bdd9e1af92ec8274"
+    },
+    {
+      "path": "assets/fonts/SourceSerif4Italic.ttf",
+      "sha1": "cf5c5f75e0c548080eecdfd57898bbf409088ef3"
+    },
+    {
+      "path": "assets/fonts/SourceSerif4Light.ttf",
+      "sha1": "1fc4d0a948bcfba9a7a5bd1dbde0ac3b68eef2f0"
+    },
+    {
+      "path": "assets/fonts/SourceSerif4LightItalic.ttf",
+      "sha1": "cc14c244f1d9c9a1232e665d23026cf1e9331e0e"
+    },
+    {
+      "path": "assets/fonts/SourceSerif4Medium.ttf",
+      "sha1": "2cb6a01c7e62841eaf8892510e48f068060df74c"
+    },
+    {
+      "path": "assets/fonts/SourceSerif4MediumItalic.ttf",
+      "sha1": "ba29a5bdea50e1f0fe0b94537ebeb3ad0033fc9b"
+    },
+    {
+      "path": "assets/fonts/SourceSerif4Regular.ttf",
+      "sha1": "876b9f67aec9ce94170400325a757af27d374f3d"
+    },
+    {
+      "path": "assets/fonts/SourceSerif4SemiBold.ttf",
+      "sha1": "59193fb908608a55d4c31141ec6e8924552baf06"
+    },
+    {
+      "path": "assets/fonts/SourceSerif4SemiBoldItalic.ttf",
+      "sha1": "72cfa655b5bf5b807fc5a0ec8b5ecf19060caca7"
+    }
+  ]
+}

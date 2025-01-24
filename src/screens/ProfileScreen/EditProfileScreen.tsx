@@ -15,12 +15,15 @@ import Header from '../../components/Header';
 import {Colors} from '../../assets/Colors';
 import CommonButton from '../../components/CommonButton';
 import ImagePickerModal from '../../components/ImagePickerModal';
+import Fonts from '../../assets/fonts';
+import DatePicker from 'react-native-date-picker';
 
 const EditProfileScreen = ({navigation, route}) => {
   const {profile} = route.params;
   const [updatedProfile, setUpdatedProfile] = useState(profile);
   const [modalVisible, setModalVisible] = useState(false);
   const [imageUri, setImageUri] = useState(null);
+  const [datePickerVisible, setDatePickerVisible] = useState(false);
 
   const handleInputChange = (key, value) => {
     setUpdatedProfile({...updatedProfile, [key]: value});
@@ -96,10 +99,37 @@ const EditProfileScreen = ({navigation, route}) => {
           placeholder="Name"
         />
         <TextInput
-          style={styles.input}
-          value={updatedProfile.dob}
-          onChangeText={text => handleInputChange('dob', text)}
-          placeholder="Date of Birth"
+          style={styles.disableInput}
+          value={updatedProfile.phone}
+          onChangeText={text => handleInputChange('name', text)}
+          placeholder="Phone"
+          editable={false}
+        />
+        <TextInput
+          style={styles.disableInput}
+          value={updatedProfile.email}
+          onChangeText={text => handleInputChange('name', text)}
+          placeholder="Email"
+          editable={false}
+        />
+        <TouchableOpacity
+          onPress={() => setDatePickerVisible(true)}
+          style={styles.input}>
+          <Text>{updatedProfile?.dob}</Text>
+        </TouchableOpacity>
+        <DatePicker
+          modal
+          open={datePickerVisible}
+          date={new Date(updatedProfile.dob)}
+          mode="date"
+          onConfirm={date => {
+            console.log('====================================');
+            console.log('Selected Date:', date);
+            console.log('====================================');
+            // handleInputChange('dob', date);
+            setDatePickerVisible(false);
+          }}
+          onCancel={() => setDatePickerVisible(false)}
         />
         <TextInput
           style={styles.input}
@@ -163,13 +193,26 @@ const styles = StyleSheet.create({
   },
   input: {
     width: '100%',
-    borderWidth: 1,
+    borderWidth: 0.5,
     borderColor: Colors.ardcoat,
     borderRadius: 5,
-    padding: 20,
-    marginVertical: 10,
+    padding: 15,
+    marginVertical: 8,
     fontSize: 16,
-    color: Colors.black,
+    color: Colors.goshawkGrey,
+    fontFamily: Fonts.Medium,
+  },
+  disableInput: {
+    width: '100%',
+    borderWidth: 0.5,
+    borderColor: Colors.ardcoat,
+    borderRadius: 5,
+    padding: 15,
+    marginVertical: 8,
+    fontSize: 16,
+    color: Colors.goshawkGrey,
+    fontFamily: Fonts.Medium,
+    backgroundColor: Colors.babyWhale,
   },
   textArea: {
     height: 100,
