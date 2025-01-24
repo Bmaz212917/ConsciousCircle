@@ -112,7 +112,7 @@ const AdminHomeScreen = () => {
       </View>
       <FlatList
         data={activeTab == '1' ? events : sessions}
-        keyExtractor={item => item?.id}
+       // keyExtractor={item => item?.id}
         style={styles.listStyle}
         renderItem={({item, index}) =>
           activeTab == '1' ? (
