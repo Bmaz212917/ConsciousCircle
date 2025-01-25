@@ -5,7 +5,8 @@ import {PaperProvider} from 'react-native-paper';
 import RootNavigator from './src/navigation/RootNavigator';
 import BootSplash from 'react-native-bootsplash';
 import {SafeAreaProvider} from "react-native-safe-area-context";
-import {SafeAreaView, StatusBar} from "react-native";
+import Toast from "react-native-toast-message";
+import toastConfig from "./src/wrappers/ToastConfig";
 
 function App(): React.JSX.Element {
   useEffect(() => {
@@ -17,6 +18,7 @@ function App(): React.JSX.Element {
       <SafeAreaProvider>
       <PaperProvider>
         <RootNavigator />
+         <Toast config={toastConfig} />
       </PaperProvider>
       </SafeAreaProvider>
     </AuthProvider>

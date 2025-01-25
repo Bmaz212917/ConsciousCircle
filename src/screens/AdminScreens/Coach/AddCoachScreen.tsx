@@ -18,6 +18,7 @@ import ImagePickerModal from '../../../components/ImagePickerModal';
 import {Checkbox} from 'react-native-paper';
 import {Colors} from '../../../assets/Colors';
 import Fonts from '../../../assets/fonts';
+import Toast from 'react-native-toast-message';
 
 const AddCoachScreen = () => {
   const navigation = useNavigation();
@@ -86,6 +87,12 @@ const AddCoachScreen = () => {
   };
 
   const handleSave = () => {
+    Toast.show({
+      type: 'error', // Matches the key in `toastConfig`
+      text1: 'Error!',
+      text2: 'Please enetr title.',
+      position: 'top',
+    });
     console.log('Saving Coach Details:', coachDetails);
   };
 

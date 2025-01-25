@@ -17,6 +17,39 @@ const CustomDrawerContent = props => {
   const [userData, setUserData] = useState(null);
   const {setUserRole, setUser} = useAuth(); // Access context functions
 
+  const navigationItems=[
+    {
+      id:1,
+      title:'Home',
+      navigationPath:'AdminHome',
+      iconName:'home-outline'
+    },
+    {
+      id:2,
+      title:'My Profile',
+      navigationPath:'Profile',
+      iconName:'person-outline'
+    },
+    {
+      id:3,
+      title:'Upcoming Sessions',
+      navigationPath:'UpcomingSessions',
+      iconName:'person-outline'
+    },
+    {
+      id:4,
+      title:'Coaches',
+      navigationPath:'UpcomingSessions',
+      iconName:'people-outline'
+    },
+    {
+      id:5,
+      title:'Subscriptions',
+      navigationPath:'UpcomingSessions',
+      iconName:'diamond'
+    }
+  ]
+
   useEffect(() => {
     const fetchUserData = async () => {
       try {
@@ -61,7 +94,18 @@ const CustomDrawerContent = props => {
 
       {/* Drawer Items */}
       <View style={styles.drawerItems}>
-        <TouchableOpacity
+        {navigationItems?.map((e,index)=>{
+          return (
+              <TouchableOpacity key={index.toString()}
+                  style={styles.menuItem}
+                  onPress={() => props.navigation.navigate(e.navigationPath)}>
+                <Icon name={e.iconName} size={24} color="black" />
+                <Text style={styles.menuItemText}>{e.title}</Text>
+              </TouchableOpacity>
+          )
+        })}
+
+       {/* <TouchableOpacity
           style={styles.menuItem}
           onPress={() => props.navigation.navigate('Profile')}>
           <Icon name="person-outline" size={24} color="black" />
@@ -86,7 +130,7 @@ const CustomDrawerContent = props => {
           onPress={() => props.navigation.navigate('Subscription')}>
           <Icon name="diamond" size={24} color="black" />
           <Text style={styles.menuItemText}>Subscription</Text>
-        </TouchableOpacity>
+        </TouchableOpacity>*/}
       </View>
 
       {/* Logout Button */}
