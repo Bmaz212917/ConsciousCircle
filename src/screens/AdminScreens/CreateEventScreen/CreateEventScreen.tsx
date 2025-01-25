@@ -187,6 +187,7 @@ const CreateEventScreen = ({navigation}) => {
 
         {/* Event Date & Time Picker */}
         {/* <Text style={styles.label}>Event Date & Time</Text> */}
+        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
         <TouchableOpacity
           style={styles.datePickerButton}
           onPress={() => setDatePickerVisible(true)}>
@@ -198,21 +199,9 @@ const CreateEventScreen = ({navigation}) => {
             })}
           </Text>
         </TouchableOpacity>
-        <DatePicker
-          modal
-          open={datePickerVisible}
-          date={eventDate}
-          mode="date"
-          onConfirm={date => {
-            setEventDate(date);
-            setDatePickerVisible(false);
-          }}
-          onCancel={() => setDatePickerVisible(false)}
-        />
-        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
           <TouchableOpacity
-            style={styles.timePickerButton}
-            onPress={() => setTimePickerVisible(true)}>
+              style={styles.timePickerButton}
+              onPress={() => setTimePickerVisible(true)}>
             <Text style={styles.datePickerText}>
               {selectedTime?.toLocaleTimeString('en-US', {
                 hour: 'numeric',
@@ -221,20 +210,13 @@ const CreateEventScreen = ({navigation}) => {
               })}
             </Text>
           </TouchableOpacity>
-          <DatePicker
-            modal
-            open={timePickerVisible}
-            date={selectedTime}
-            mode="time" // Only for time
-            onConfirm={time => {
-              setSelectedTime(time);
-              setTimePickerVisible(false);
-            }}
-            onCancel={() => setTimePickerVisible(false)}
-          />
-          <TouchableOpacity style={{flex: 1, marginLeft: 10}}>
+        </View>
+
+        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+
+          <TouchableOpacity style={{flex: 1}}>
             <TextInput
-              style={styles.input}
+              style={[styles.input,{flex:1}]}
               placeholder="Enter Duration"
               enterKeyHint="done"
               keyboardType="numeric" // Ensures numeric keyboard
@@ -244,6 +226,37 @@ const CreateEventScreen = ({navigation}) => {
               // editable={!unit} // Prevent editing when unit is selected
             />
           </TouchableOpacity>
+          <Menu
+              visible={menuVisible}
+              onDismiss={() => setMenuVisible(false)}
+              anchorPosition="bottom"
+              contentStyle={{
+                flex:1,
+                marginLeft:10,
+                backgroundColor: '#fff',
+               // width: width - 40, // Set a fixed width for the menu
+              }}
+              anchor={
+                <TouchableOpacity
+                    style={styles.menuButton}
+                    onPress={() => setMenuVisible(true)}>
+                  <Text style={styles.menuButtonText}>
+                    {eventType || 'Select Event Type'}
+                  </Text>
+                  <Icon name="chevron-down-outline" size={20} color="#555" />
+                </TouchableOpacity>
+              }>
+            {eventTypes.map(type => (
+                <Menu.Item
+                    key={type}
+                    onPress={() => {
+                      setEventType(type);
+                      setMenuVisible(false);
+                    }}
+                    title={type}
+                />
+            ))}
+          </Menu>
         </View>
         {/* Event Description */}
 
@@ -269,6 +282,32 @@ const CreateEventScreen = ({navigation}) => {
           onChooseFromGallery={chooseFromGallery}
         />
       </ScrollView>
+
+      <DatePicker
+          modal
+          open={timePickerVisible}
+          date={selectedTime}
+          mode="time" // Only for time
+          onConfirm={time => {
+            setSelectedTime(time);
+            setTimePickerVisible(false);
+          }}
+          onCancel={() => setTimePickerVisible(false)}
+      />
+
+      <DatePicker
+          modal
+          open={datePickerVisible}
+          date={eventDate}
+          mode="date"
+          onConfirm={date => {
+            setEventDate(date);
+            setDatePickerVisible(false);
+          }}
+          onCancel={() => setDatePickerVisible(false)}
+      />
+
+
       <Modal
         transparent={true}
         visible={durationModalVisible}
@@ -355,6 +394,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     paddingHorizontal: 10,
     marginVertical: 15,
+    flex:1,
   },
 
   timePickerButton: {
@@ -365,7 +405,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     paddingHorizontal: 10,
     marginVertical: 15,
-    marginTop: 0,
+    marginLeft: 10,
     flex: 1,
   },
   datePickerText: {

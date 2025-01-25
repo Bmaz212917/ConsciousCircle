@@ -126,6 +126,7 @@ const AddCoachScreen = () => {
         <TextInput
           style={styles.input}
           placeholder="Name"
+          placeholderTextColor={'grey'}
           value={coachDetails.name}
           onChangeText={text =>
             setCoachDetails(prev => ({...prev, name: text}))
@@ -135,6 +136,7 @@ const AddCoachScreen = () => {
           style={styles.input}
           placeholder="Phone No"
           keyboardType="phone-pad"
+          placeholderTextColor={'grey'}
           value={coachDetails.phone}
           onChangeText={text =>
             setCoachDetails(prev => ({...prev, phone: text}))
@@ -145,6 +147,7 @@ const AddCoachScreen = () => {
           placeholder="Email"
           keyboardType="email-address"
           value={coachDetails.email}
+
           onChangeText={text =>
             setCoachDetails(prev => ({...prev, email: text}))
           }
