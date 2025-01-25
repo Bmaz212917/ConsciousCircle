@@ -56,18 +56,15 @@ const ProfileScreen = ({navigation}) => {
             <Text style={styles.infoText}>{profile.phone}</Text>
           </View>
           <View style={styles.mailContainer}>
-            <Icon name="mail-outline" size={20} color={Colors.goshawkGrey} />
-            <Text
-              ellipsizeMode="tail"
-              numberOfLines={1}
-              style={styles.infoText}>
-              {profile.email}
-            </Text>
+            <Icon name="calendar-clear-outline" size={20} color="#555" />
+            <Text style={styles.infoText}>{profile.dob}</Text>
           </View>
         </View>
         <View style={styles.infoRow}>
-          <Icon name="calendar-clear-outline" size={20} color="#555" />
-          <Text style={styles.infoText}>{profile.dob}</Text>
+          <Icon name="mail-outline" size={20} color={Colors.goshawkGrey} />
+          <Text ellipsizeMode="tail" numberOfLines={1} style={styles.infoText}>
+            {profile.email}
+          </Text>
         </View>
         <View style={styles.infoRow}>
           <Icon name="location-sharp" size={20} color="#555" />

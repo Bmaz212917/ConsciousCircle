@@ -112,7 +112,7 @@ dependencies {
     implementation("com.facebook.react:react-android")
     apply plugin: 'com.google.gms.google-services'
     project.ext.vectoricons = [
-    iconFontNames: [ 'MaterialIcons.ttf', 'EvilIcons.ttf', 'MaterialCommunityIcons.ttf' ] // Specify font files
+    iconFontNames: [ 'MaterialIcons.ttf', 'EvilIcons.ttf', 'MaterialCommunityIcons.ttf', 'Ionicons.ttf' ] // Specify font files
 ]
     apply from: file("../../node_modules/react-native-vector-icons/fonts.gradle")
 

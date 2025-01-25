@@ -7,19 +7,40 @@ import {useNavigation} from '@react-navigation/native';
 import ReadMoreText from './ReadMoreText';
 import SessionTimeIcon from '../assets/icons/SessionTimeIcon';
 import MeetingLinkIcon from '../assets/icons/MeetingLinkIcon';
+import PopupMenu from './PopupMenu';
+import {useAuth} from '../context/AuthProvider';
+import MenuWithActions from './MenuWithActions';
 
 const CoachingListItem = ({data}) => {
   const navigation = useNavigation();
+  const {userRole, isAdmin, isCoach} = useAuth();
+
+  const handleEdit = coach => {
+    navigation.navigate('CreateSession', {event: data});
+  };
+
+  const handleDelete = coach => {
+    console.log('Delete', coach?.name);
+  };
+
   return (
     <TouchableOpacity
       onPress={() => navigation.navigate('CoachingDetail', {data: data})}
       style={styles.container}>
       <View style={styles.userContainer}>
         <Image source={data?.coach?.image} style={styles.profileImage} />
-        <View>
+        <View style={{flex: 1}}>
           <Text style={styles.nameText}>{data?.coach?.name}</Text>
           <Text style={styles.catText}>{data?.coach?.category}</Text>
         </View>
+        {(isAdmin || isCoach) && (
+          <View style={styles.menuContainer}>
+            <MenuWithActions
+              onEdit={() => handleEdit()}
+              onDelete={() => handleDelete()}
+            />
+          </View>
+        )}
       </View>
       <View>
         <Text ellipsizeMode="tail" numberOfLines={1} style={styles.nameText}>
@@ -74,6 +95,11 @@ const styles = StyleSheet.create({
     padding: 15,
     paddingVertical: 15,
     marginVertical: 10,
+  },
+  menuContainer: {
+    flex: 0.3,
+    marginTop: -40,
+    marginRight: -40,
   },
   profileImage: {
     width: 80,

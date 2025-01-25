@@ -1,15 +1,13 @@
-import React, {useState, useEffect} from 'react';
+import React, {useCallback, useState} from 'react';
 import {
   View,
   Text,
   StyleSheet,
   TextInput,
   TouchableOpacity,
-  Modal,
   Image,
   Alert,
   ScrollView,
-  Dimensions,
   useWindowDimensions,
 } from 'react-native';
 import DatePicker from 'react-native-date-picker';
@@ -23,31 +21,45 @@ import CommonButton from '../../../components/CommonButton';
 import ImagePickerModal from '../../../components/ImagePickerModal';
 import Fonts from '../../../assets/fonts';
 import {Colors} from '../../../assets/Colors';
+import {useFocusEffect} from '@react-navigation/native';
 
-const CreateEventScreen = ({navigation, route}) => {
+const CreateNewSession = ({navigation, route}) => {
   const {event} = route.params || {};
+  console.log('CreateNewSession', event);
 
   const [eventName, setEventName] = useState(event?.title || '');
-  const [location, setLocation] = useState(event?.location || '');
-  const [eventType, setEventType] = useState(event?.type || '');
+  const [eventType, setEventType] = useState(event?.coach?.category || '');
   const [eventDate, setEventDate] = useState(
     event?.date ? new Date(event.date) : new Date(),
   );
   const [eventDescription, setEventDescription] = useState(
     event?.description || '',
   );
+  const [meetingLink, setMeetingLink] = useState('');
   const [imageUri, setImageUri] = useState(event?.imageUrl || null);
   const [modalVisible, setModalVisible] = useState(false);
   const [datePickerVisible, setDatePickerVisible] = useState(false);
   const [timePickerVisible, setTimePickerVisible] = useState(false);
   const [selectedTime, setSelectedTime] = useState(new Date());
   const [menuVisible, setMenuVisible] = useState(false);
-  const [unitMenuVisible, setUnitMenuVisible] = useState(false);
-  const [unitType, setUnitType] = useState('');
   const {width} = useWindowDimensions();
-  const eventTypes = ['Free', 'Premium'];
-  const timeUnits = ['Hours', 'Minutes'];
-  const [duration, setDuration] = useState(event?.duration || '');
+  const eventTypes = [
+    'Mindfulness & Meditation Coaching',
+    'Emotional Well-Being & Relationship Coaching',
+    'Career & Purpose Coaching',
+  ];
+
+  useFocusEffect(
+    useCallback(() => {
+      if (event) {
+        setEventName(event?.title || '');
+        setEventType(event?.coach?.category || '');
+        setEventDate(event?.date ? new Date(event.date) : new Date());
+        setEventDescription(event?.description || '');
+        setImageUri(event?.imageUrl || null);
+      }
+    }, [event]),
+  );
 
   const options = {
     mediaType: 'photo',
@@ -107,7 +119,6 @@ const CreateEventScreen = ({navigation, route}) => {
         date: eventDate.toISOString(),
         description: eventDescription,
         imageUrl: downloadUrl,
-        duration,
         updatedAt: firestore.FieldValue.serverTimestamp(),
       };
 
@@ -137,7 +148,7 @@ const CreateEventScreen = ({navigation, route}) => {
     <View style={{flex: 1, backgroundColor: '#fff'}}>
       <Header
         leftIcon={'arrow-back-outline'}
-        title={event ? 'Update Event' : 'Create Event'}
+        title={event ? 'Update Coaching' : 'Add Coaching'}
         onLeftPress={() => navigation.goBack()}
       />
       <ScrollView contentContainerStyle={styles.container}>
@@ -153,7 +164,7 @@ const CreateEventScreen = ({navigation, route}) => {
         </TouchableOpacity>
 
         {/* Event Name */}
-        <Text style={styles.label}>Event Details</Text>
+        <Text style={styles.label}>Coaching Details</Text>
         <TextInput
           style={styles.input}
           placeholder="Name"
@@ -161,14 +172,14 @@ const CreateEventScreen = ({navigation, route}) => {
           onChangeText={setEventName}
           placeholderTextColor={Colors.desiredDawn}
         />
-
+        {/* 
         <TextInput
           style={styles.input}
           placeholder="Location"
           value={location}
           onChangeText={setLocation}
           placeholderTextColor={Colors.desiredDawn}
-        />
+        /> */}
 
         {/* Event Type Dropdown */}
         <Menu
@@ -184,7 +195,7 @@ const CreateEventScreen = ({navigation, route}) => {
               style={styles.menuButton}
               onPress={() => setMenuVisible(true)}>
               <Text style={styles.menuButtonText}>
-                {eventType || 'Select Event Type'}
+                {eventType || 'Select Category'}
               </Text>
               <Icon name="chevron-down-outline" size={20} color="#555" />
             </TouchableOpacity>
@@ -228,47 +239,13 @@ const CreateEventScreen = ({navigation, route}) => {
           </TouchableOpacity>
         </View>
 
-        <View style={styles.durationContainer}>
-          <TouchableOpacity style={{flex: 1}}>
-            <TextInput
-              style={[styles.input, {flex: 1}]}
-              placeholder="Enter Duration"
-              enterKeyHint="done"
-              keyboardType="numeric"
-              value={duration}
-              onChangeText={setDuration}
-            />
-          </TouchableOpacity>
-          <View style={{flex: 1}}>
-            <Menu
-              visible={unitMenuVisible}
-              onDismiss={() => setUnitMenuVisible(false)}
-              anchorPosition="bottom"
-              contentStyle={styles.unitMenuStyle}
-              anchor={
-                <TouchableOpacity
-                  style={[styles.menuButton, {marginLeft: 10}]}
-                  onPress={() => setUnitMenuVisible(true)}>
-                  <Text style={styles.menuButtonText}>
-                    {unitType || 'Minutes or Hours'}
-                  </Text>
-                  <Icon name="chevron-down-outline" size={20} color="#555" />
-                </TouchableOpacity>
-              }>
-              {timeUnits.map(type => (
-                <Menu.Item
-                  key={type}
-                  onPress={() => {
-                    setUnitType(type);
-                    setUnitMenuVisible(false);
-                  }}
-                  title={type}
-                  titleStyle={styles.menuItemText}
-                />
-              ))}
-            </Menu>
-          </View>
-        </View>
+        <TextInput
+          style={styles.input}
+          placeholder="Meeting Link"
+          value={meetingLink}
+          onChangeText={setMeetingLink}
+          placeholderTextColor={Colors.desiredDawn}
+        />
 
         <TextInput
           style={[styles.input, styles.textArea]}
@@ -281,7 +258,7 @@ const CreateEventScreen = ({navigation, route}) => {
         />
 
         <CommonButton
-          label={event ? 'Update Event' : 'Publish Event'}
+          label={event ? 'Update' : 'Publish'}
           containerStyle={{backgroundColor: 'black'}}
           textStyle={{color: 'white'}}
           onPress={handlePublish}
@@ -364,6 +341,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     paddingVertical: 10,
     fontFamily: Fonts.Medium,
+    color: Colors.goshawkGrey,
   },
   textArea: {
     height: 100,
@@ -425,9 +403,10 @@ const styles = StyleSheet.create({
     fontFamily: Fonts.Medium,
   },
   menuItemText: {
-    fontSize: 16,
+    fontSize: 14,
     color: Colors.goshawkGrey,
     fontFamily: Fonts.Medium,
+    width: '100%',
   },
   modalContainer: {
     flex: 1,
@@ -464,4 +443,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CreateEventScreen;
+export default CreateNewSession;

@@ -18,31 +18,31 @@ import MenuWithActions from '../../../components/MenuWithActions';
 const coaches = [
   {
     name: 'John Doe',
-    role: 'Fitness Coach',
+    role: 'Free',
     avatar: require('../../../assets/images/profile.png'),
   },
   {
     name: 'Jane Doe',
-    role: 'Yoga Instructor',
+    role: 'Premium',
     avatar: require('../../../assets/images/profile.png'),
   },
   {
     name: 'Alice',
-    role: 'Personal Trainer',
+    role: 'Premium',
     avatar: require('../../../assets/images/profile.png'),
   },
   {
     name: 'Bob',
-    role: 'Nutritionist',
+    role: 'Free',
     avatar: require('../../../assets/images/profile.png'),
   },
   {
     name: 'Charlie',
-    role: 'Mental Health Coach',
+    role: 'Free',
     avatar: require('../../../assets/images/profile.png'),
   },
 ];
-const CoachListing = () => {
+const AllUsers = () => {
   const navigation = useNavigation();
   const [visibleMenu, setVisibleMenu] = useState(null);
 
@@ -71,12 +71,6 @@ const CoachListing = () => {
           <Text style={styles.name}>{name}</Text>
           <Text style={styles.role}>{role}</Text>
         </View>
-        <View style={{marginTop: -45, marginRight: -10}}>
-          <MenuWithActions
-            onEdit={() => handleEdit(item)}
-            onDelete={() => handleDelete(item)}
-          />
-        </View>
       </View>
     );
   };
@@ -85,10 +79,8 @@ const CoachListing = () => {
     <View style={{flex: 1, backgroundColor: '#fff'}}>
       <Header
         leftIcon={'menu'}
-        rightIcon={'add'}
-        title={'All Coaches'}
+        title={'All Users'}
         onLeftPress={() => navigation.openDrawer()}
-        onRightPress={() => navigation.navigate('AddCoach')}
       />
       <FlatList
         data={coaches}
@@ -133,4 +125,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CoachListing;
+export default AllUsers;

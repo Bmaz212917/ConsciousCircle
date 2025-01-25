@@ -11,6 +11,8 @@ import EditProfileScreen from '../screens/ProfileScreen/EditProfileScreen';
 import CoachingDetailScreen from '../screens/CoachingDetail/CoachingDetailScreen';
 import UpcomingCoachingScreen from '../screens/UpcomingCoaching/UpcomingCoachingScreen';
 import CoachListing from '../screens/AdminScreens/Coach/CoachListing';
+import CreateNewSession from '../screens/AdminScreens/Coach/CreateNewSession';
+import AllUsers from '../screens/AdminScreens/Coach/AllUsers';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -27,12 +29,14 @@ const AdminStack = () => {
       drawerContent={props => <CustomDrawerContent {...props} />}>
       <Stack.Screen name="AdminHome" component={AdminHomeScreen} />
       <Stack.Screen name="CreateEvent" component={CreateEventScreen} />
+      <Stack.Screen name="CreateSession" component={CreateNewSession} />
       <Stack.Screen name="EventDetail" component={EventDetailScreen} />
       <Stack.Screen name="CoachingDetail" component={CoachingDetailScreen} />
       <Stack.Screen name="AddCoach" component={AddCoachScreen} />
       <Stack.Screen name="Profile" component={ProfileScreen} />
       <Stack.Screen name="EditProfile" component={EditProfileScreen} />
       <Stack.Screen name="CoachListing" component={CoachListing} />
+      <Stack.Screen name="AllUsers" component={AllUsers} />
       <Stack.Screen
         name="UpcomingSessions"
         component={UpcomingCoachingScreen}

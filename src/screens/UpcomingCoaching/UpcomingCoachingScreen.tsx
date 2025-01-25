@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, StyleSheet, FlatList} from 'react-native';
+import {View, StyleSheet, FlatList, TouchableOpacity, Text} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {useNavigation} from '@react-navigation/native';
 import Header from '../../components/Header';
@@ -8,11 +8,13 @@ import CoachingListItem from '../../components/CoachingListItem';
 import {Colors} from '../../assets/Colors';
 import Fonts from '../../assets/fonts';
 import {DummyCoach} from '../../Utils/DummyData';
+import {useAuth} from '../../context/AuthProvider';
 
 const UpcomingCoachingScreen = () => {
   const navigation = useNavigation();
-
+  const {isAdmin, isCoach} = useAuth();
   const [sessions, setSessions] = useState(DummyCoach?.slice(1));
+  const [activeTab, setActiveTab] = useState(1);
 
   return (
     <View style={styles.container}>
@@ -21,6 +23,20 @@ const UpcomingCoachingScreen = () => {
         title={'Upcoming Sesisons'}
         onLeftPress={() => navigation.openDrawer()}
       />
+      {(isAdmin || isCoach) && (
+        <View style={styles.sectionContainer}>
+          <TouchableOpacity
+            onPress={() => setActiveTab(1)}
+            style={activeTab == 1 ? styles.activeSection : styles.section}>
+            <Text style={styles.heading}>Upcoming Sessions</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => setActiveTab(2)}
+            style={activeTab == 2 ? styles.activeSection : styles.section}>
+            <Text style={styles.heading}>Past Sessions</Text>
+          </TouchableOpacity>
+        </View>
+      )}
       <FlatList
         data={sessions}
         keyExtractor={item => item?.id}
@@ -39,7 +55,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   heading: {
-    fontSize: 16,
+    fontSize: 14,
     fontFamily: Fonts.Medium,
     marginVertical: 10,
     color: Colors.goshawkGrey,

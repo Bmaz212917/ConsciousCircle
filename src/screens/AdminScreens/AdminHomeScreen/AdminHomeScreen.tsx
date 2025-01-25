@@ -17,15 +17,15 @@ import CoachingListItem from '../../../components/CoachingListItem';
 import {Colors} from '../../../assets/Colors';
 import Fonts from '../../../assets/fonts';
 import {DummyCoach, DummyEvent} from '../../../Utils/DummyData';
+import {useAuth} from '../../../context/AuthProvider';
 
 const AdminHomeScreen = () => {
   const navigation = useNavigation();
   const [events, setEvents] = useState(DummyEvent);
   const [sessions, setSessions] = useState(DummyCoach);
   const [fabOpen, setFabOpen] = useState(false);
-  const [activeTab, setActiveTab] = useState(1);
-  const [searchQuery, setSearchQuery] = useState('');
-
+  const {isAdmin, isCoach} = useAuth();
+  const [activeTab, setActiveTab] = useState(isCoach ? 2 : 1);
   const animation = React.useRef(new Animated.Value(0)).current;
 
   const toggleFab = () => {
@@ -83,36 +83,35 @@ const AdminHomeScreen = () => {
     }),
   };
 
-  const handleSearch = query => {
-    setSearchQuery(query);
-    console.log('Search Query:', query);
-  };
-
   return (
     <View style={styles.container}>
       <Header
         leftIcon={'menu'}
-        rightIcon={'search'}
         title={'Consious Circle'}
         onLeftPress={() => navigation.openDrawer()}
-        onSearch={handleSearch}
         showLogo
+        rightIcon={isCoach && 'add-circle-outline'}
+        onRightPress={() =>
+          isCoach ? navigation.navigate('CreateSession') : null
+        }
       />
-      <View style={styles.sectionContainer}>
-        <TouchableOpacity
-          onPress={() => setActiveTab(1)}
-          style={activeTab == 1 ? styles.activeSection : styles.section}>
-          <Text style={styles.heading}>Events</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => setActiveTab(2)}
-          style={activeTab == 2 ? styles.activeSection : styles.section}>
-          <Text style={styles.heading}>Coaching</Text>
-        </TouchableOpacity>
-      </View>
+      {!isCoach && (
+        <View style={styles.sectionContainer}>
+          <TouchableOpacity
+            onPress={() => setActiveTab(1)}
+            style={activeTab == 1 ? styles.activeSection : styles.section}>
+            <Text style={styles.heading}>Events</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => setActiveTab(2)}
+            style={activeTab == 2 ? styles.activeSection : styles.section}>
+            <Text style={styles.heading}>Coaching</Text>
+          </TouchableOpacity>
+        </View>
+      )}
       <FlatList
         data={activeTab == '1' ? events : sessions}
-       // keyExtractor={item => item?.id}
+        // keyExtractor={item => item?.id}
         style={styles.listStyle}
         renderItem={({item, index}) =>
           activeTab == '1' ? (
@@ -122,31 +121,33 @@ const AdminHomeScreen = () => {
           )
         }
       />
-      {/* Floating Action Button */}
+
       <View style={styles.fabContainer}>
-        {/* Create Event Button */}
         <Animated.View style={[styles.fabButton, fabStyle1]}>
           <TouchableOpacity
             style={styles.fabAction}
-            onPress={() => navigation.navigate('CreateEvent')}>
+            onPress={() => {
+              !isAdmin
+                ? navigation.navigate('CreateEvent')
+                : navigation.navigate('CreateSession');
+            }}>
             <Icon name="calendar-outline" size={24} color="#fff" />
           </TouchableOpacity>
         </Animated.View>
 
-        {/* Add Coach Button */}
         <Animated.View style={[styles.fabButton, fabStyle2]}>
           <TouchableOpacity
             style={styles.fabAction}
             onPress={() => navigation.navigate('AddCoach')}>
             <Icon name="person-add-outline" size={24} color="#fff" />
-            {/* <Text>Add Coach</Text> */}
           </TouchableOpacity>
         </Animated.View>
 
-        {/* Main FAB */}
-        <TouchableOpacity style={styles.fabMain} onPress={toggleFab}>
-          <Icon name={fabOpen ? 'close' : 'add'} size={24} color="#fff" />
-        </TouchableOpacity>
+        {isAdmin && (
+          <TouchableOpacity style={styles.fabMain} onPress={toggleFab}>
+            <Icon name={fabOpen ? 'close' : 'add'} size={24} color="#fff" />
+          </TouchableOpacity>
+        )}
       </View>
     </View>
   );
