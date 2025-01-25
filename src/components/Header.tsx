@@ -10,6 +10,7 @@ import {
 import Icon from 'react-native-vector-icons/Ionicons';
 import Fonts from '../assets/fonts';
 import {Colors} from '../assets/Colors';
+import DrawerIcon from '../assets/icons/DrawerIcon';
 
 const Header = ({
   title,
@@ -63,7 +64,11 @@ const Header = ({
         <>
           {/* Left Icon */}
           <TouchableOpacity onPress={onLeftPress} style={styles.iconContainer}>
-            {leftIcon && <Icon name={leftIcon} size={24} color="#000" />}
+            {leftIcon == 'menu' ? (
+              <DrawerIcon />
+            ) : Boolean(leftIcon) ? (
+              <Icon name={leftIcon} size={24} color="#000" />
+            ) : null}
           </TouchableOpacity>
 
           {/* Title */}
@@ -73,12 +78,7 @@ const Header = ({
             <Image
               source={require('../assets/icons/logo.png')}
               tintColor={'black'}
-              style={{
-                width: 120,
-                height: 70,
-                resizeMode: 'contain',
-                alignSelf: 'center',
-              }}
+              style={styles.logoContainer}
             />
           )}
           {/* Right Icon */}
@@ -126,6 +126,12 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     paddingHorizontal: 10,
     height: 40,
+  },
+  logoContainer: {
+    width: 120,
+    height: 70,
+    resizeMode: 'contain',
+    alignSelf: 'center',
   },
 });
 

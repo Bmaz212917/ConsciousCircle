@@ -1,21 +1,23 @@
 import React, {createContext, useState, useContext} from 'react';
 
-// Create the context
 const AuthContext = createContext();
 
-// Provider component
 export const AuthProvider = ({children}) => {
-  const [userRole, setUserRole] = useState(null); // 'admin', 'user', or null
-  const [user, setUser] = useState(null); // Store user details if needed
+  const [userRole, setUserRole] = useState(null);
+  const [user, setUser] = useState(null);
+
+  const isAdmin = userRole === 'admin';
+  const isCoach = userRole === 'coach';
+  const isUser = userRole === 'user';
 
   return (
-    <AuthContext.Provider value={{userRole, setUserRole, user, setUser}}>
+    <AuthContext.Provider
+      value={{userRole, setUserRole, user, setUser, isAdmin, isCoach, isUser}}>
       {children}
     </AuthContext.Provider>
   );
 };
 
-// Custom hook for consuming the AuthContext
 export const useAuth = () => {
   return useContext(AuthContext);
 };

@@ -29,6 +29,7 @@ const AddCoachScreen = () => {
     phone: '',
     email: '',
     location: '',
+    shortDesc: '',
     category: [],
     description: '',
   });
@@ -126,8 +127,8 @@ const AddCoachScreen = () => {
         <TextInput
           style={styles.input}
           placeholder="Name"
-          placeholderTextColor={'grey'}
           value={coachDetails.name}
+          placeholderTextColor={Colors.desiredDawn}
           onChangeText={text =>
             setCoachDetails(prev => ({...prev, name: text}))
           }
@@ -136,8 +137,8 @@ const AddCoachScreen = () => {
           style={styles.input}
           placeholder="Phone No"
           keyboardType="phone-pad"
-          placeholderTextColor={'grey'}
           value={coachDetails.phone}
+          placeholderTextColor={Colors.desiredDawn}
           onChangeText={text =>
             setCoachDetails(prev => ({...prev, phone: text}))
           }
@@ -147,18 +148,30 @@ const AddCoachScreen = () => {
           placeholder="Email"
           keyboardType="email-address"
           value={coachDetails.email}
-
+          placeholderTextColor={Colors.desiredDawn}
           onChangeText={text =>
             setCoachDetails(prev => ({...prev, email: text}))
           }
         />
         <TextInput
           style={styles.input}
-          placeholder="Location"
+          placeholder="Address"
           value={coachDetails.location}
+          placeholderTextColor={Colors.desiredDawn}
           onChangeText={text =>
             setCoachDetails(prev => ({...prev, location: text}))
           }
+        />
+        <TextInput
+          style={[styles.input, styles.textArea]}
+          placeholder="Short Description"
+          value={coachDetails.shortDesc}
+          multiline
+          placeholderTextColor={Colors.desiredDawn}
+          onChangeText={text =>
+            setCoachDetails(prev => ({...prev, shortDesc: text}))
+          }
+          textAlignVertical="top"
         />
         <Text style={styles.label}>Select Category</Text>
         {categories.map(category => (
@@ -180,13 +193,15 @@ const AddCoachScreen = () => {
           </TouchableOpacity>
         ))}
         <TextInput
-          style={[styles.input, styles.textArea]}
+          style={[styles.input, styles.largeTextArea]}
           placeholder="Description"
+          placeholderTextColor={Colors.desiredDawn}
           multiline
           value={coachDetails.description}
           onChangeText={text =>
             setCoachDetails(prev => ({...prev, description: text}))
           }
+          textAlignVertical="top"
         />
         <CommonButton
           onPress={handleSave}
@@ -215,6 +230,7 @@ const styles = StyleSheet.create({
     fontFamily: Fonts.Medium,
     marginVertical: 10,
     marginTop: 20,
+    color: Colors.goshawkGrey,
   },
   imageContainer: {
     alignSelf: 'center',
@@ -236,30 +252,39 @@ const styles = StyleSheet.create({
   },
   input: {
     height: 50,
-    borderColor: '#ddd',
+    borderColor: Colors.ardcoat,
     borderWidth: 1,
     borderRadius: 8,
     marginBottom: 15,
     paddingHorizontal: 10,
     fontFamily: Fonts.Medium,
+    color: Colors.goshawkGrey,
   },
   label: {
     fontSize: 16,
     marginBottom: 10,
     fontFamily: Fonts.Medium,
+    color: Colors.goshawkGrey,
   },
   checkboxContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 10,
+    marginBottom: 5,
   },
   checkboxLabel: {
     fontSize: 14,
     fontFamily: Fonts.Medium,
+    color: Colors.goshawkGrey,
   },
   textArea: {
     height: 100,
     fontFamily: Fonts.Medium,
+    paddingVertical: 10,
+  },
+  largeTextArea: {
+    height: 150,
+    fontFamily: Fonts.Medium,
+    paddingVertical: 10,
   },
   saveButton: {
     backgroundColor: '#000',

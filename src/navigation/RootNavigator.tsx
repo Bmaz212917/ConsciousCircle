@@ -4,21 +4,24 @@ import AdminStack from './AdminStack'; // Import AdminStack
 import UserStack from './UserStack';
 import {useAuth} from '../context/AuthProvider';
 import AuthStack from './AuthStack';
-import {SafeAreaView, StyleSheet} from "react-native";
+import {SafeAreaView, StyleSheet} from 'react-native';
+import CoachStack from './CoachStack';
 
 const RootNavigator = () => {
-  const {userRole} = useAuth();
+  const {userRole, isAdmin, isCoach, isUser} = useAuth();
 
   return (
     <NavigationContainer independent={true}>
-      <SafeAreaView  style={styles.safeAreaViewStyle}>
-      {userRole === 'admin' ? (
-        <AdminStack />
-      ) : userRole === 'user' ? (
-        <UserStack />
-      ) : (
-        <AuthStack />
-      )}
+      <SafeAreaView style={styles.safeAreaViewStyle}>
+        {isAdmin ? (
+          <AdminStack />
+        ) : isCoach ? (
+          <CoachStack />
+        ) : isUser ? (
+          <UserStack />
+        ) : (
+          <AuthStack />
+        )}
       </SafeAreaView>
     </NavigationContainer>
   );
@@ -26,9 +29,8 @@ const RootNavigator = () => {
 
 export default RootNavigator;
 const styles = StyleSheet.create({
-  safeAreaViewStyle:{
+  safeAreaViewStyle: {
     backgroundColor: 'white',
-    flex: 1
-  }
-
+    flex: 1,
+  },
 });

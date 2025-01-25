@@ -7,6 +7,9 @@ import ProfileScreen from '../screens/ProfileScreen/ProfileScreen';
 import EditProfileScreen from '../screens/ProfileScreen/EditProfileScreen';
 import UpcomingCoachingScreen from '../screens/UpcomingCoaching/UpcomingCoachingScreen';
 import {createStackNavigator} from '@react-navigation/stack';
+import EventDetailScreen from '../screens/EventDetail/EventDetailScreen';
+import CoachingDetailScreen from '../screens/CoachingDetail/CoachingDetailScreen';
+import AdminHomeScreen from '../screens/AdminScreens/AdminHomeScreen/AdminHomeScreen';
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -21,9 +24,11 @@ const UserStack = () => {
         },
       }}
       drawerContent={props => <CustomDrawerContent {...props} />}>
-      <Stack.Screen name="Home" component={HomeScreen} />
+      <Stack.Screen name="Home" component={AdminHomeScreen} />
       <Stack.Screen name="Profile" component={ProfileScreen} />
       <Stack.Screen name="EditProfile" component={EditProfileScreen} />
+      <Stack.Screen name="EventDetail" component={EventDetailScreen} />
+      <Stack.Screen name="CoachingDetail" component={CoachingDetailScreen} />
       <Stack.Screen
         name="UpcomingSessions"
         component={UpcomingCoachingScreen}

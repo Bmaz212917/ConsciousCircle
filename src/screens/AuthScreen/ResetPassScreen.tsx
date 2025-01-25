@@ -14,6 +14,8 @@ import auth from '@react-native-firebase/auth';
 import CommonTextInput from '../../components/CommonTextInput';
 import {useNavigation} from '@react-navigation/native';
 import CommonButton from '../../components/CommonButton';
+import Fonts from '../../assets/fonts';
+import Header from '../../components/Header';
 
 const ResetPassScreen = () => {
   const navigation = useNavigation();
@@ -57,36 +59,37 @@ const ResetPassScreen = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <View>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Image
-            source={require('../../assets/icons/Back.png')}
-            style={{width: 30, height: 30}}
+    <View style={{flex: 1, backgroundColor: 'white'}}>
+      <Header leftIcon={'arrow-back'} onLeftPress={() => navigation.goBack()} />
+      <View style={styles.container}>
+        <Text style={styles.title}>Reset Password</Text>
+        <Text
+          style={{
+            fontFamily: Fonts.Medium,
+          }}>
+          Please enter your email address to request a password reset
+        </Text>
+        <View style={{marginTop: 20}}>
+          <CommonTextInput
+            placeholder="abc@email.com"
+            placeholderTextColor="black"
+            iconSource={require('../../assets/icons/Mail.png')}
+            iconColor={'black'}
+            enablesReturnKeyAutomatically
+            keyboardType="email-address"
+            onChangeText={setEmail}
+            value={email}
+            style={{color: 'black'}}
           />
-        </TouchableOpacity>
-      </View>
-      <Text style={styles.title}>Reset Password</Text>
-      <Text>Please enter your email address to request a password reset</Text>
-      <View style={{marginTop: 20}}>
-        <CommonTextInput
-          placeholder="abc@email.com"
-          placeholderTextColor="black"
-          iconSource={require('../../assets/icons/Mail.png')}
-          enablesReturnKeyAutomatically
-          keyboardType="email-address"
-          onChangeText={setEmail}
-          value={email}
-          style={{color: 'black'}}
+        </View>
+        <CommonButton
+          label="SEND"
+          onPress={handleResetPassword}
+          textStyle={{color: 'white'}}
+          containerStyle={{backgroundColor: 'black', marginTop: 20}}
+          isLoading={isLoading}
         />
       </View>
-      <CommonButton
-        label="SEND"
-        onPress={handleResetPassword}
-        textStyle={{color: 'white'}}
-        containerStyle={{backgroundColor: 'black', marginTop: 20}}
-        isLoading={isLoading}
-      />
     </View>
   );
 };
@@ -100,9 +103,8 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 24,
-    fontWeight: 'bold',
+    fontFamily: Fonts.Medium,
     marginVertical: 10,
-    marginTop: 30,
   },
   input: {
     height: 50,
@@ -111,6 +113,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginBottom: 15,
     paddingHorizontal: 10,
+    fontFamily: Fonts.Medium,
   },
   error: {
     color: 'red',

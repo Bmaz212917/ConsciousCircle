@@ -120,12 +120,9 @@ const EditProfileScreen = ({navigation, route}) => {
         <DatePicker
           modal
           open={datePickerVisible}
-          date={new Date(updatedProfile.dob)}
+          date={new Date()}
           mode="date"
           onConfirm={date => {
-            console.log('====================================');
-            console.log('Selected Date:', date);
-            console.log('====================================');
             // handleInputChange('dob', date);
             setDatePickerVisible(false);
           }}
@@ -143,6 +140,7 @@ const EditProfileScreen = ({navigation, route}) => {
           onChangeText={text => handleInputChange('aboutMe', text)}
           placeholder="About Me"
           multiline
+          textAlignVertical="top"
         />
 
         <CommonButton
@@ -215,7 +213,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.babyWhale,
   },
   textArea: {
-    height: 100,
+    height: 150,
     textAlignVertical: 'top',
   },
   saveButton: {

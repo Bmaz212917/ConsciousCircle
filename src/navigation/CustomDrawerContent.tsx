@@ -15,41 +15,98 @@ import Icon from 'react-native-vector-icons/Ionicons'; // Import icon library
 
 const CustomDrawerContent = props => {
   const [userData, setUserData] = useState(null);
-  const {setUserRole, setUser} = useAuth(); // Access context functions
+  const {setUserRole, setUser, isAdmin, isCoach, isUser} = useAuth(); // Access context functions
 
-  const navigationItems=[
+  const adminNavigationItems = [
     {
-      id:1,
-      title:'Home',
-      navigationPath:'AdminHome',
-      iconName:'home-outline'
+      id: 1,
+      title: 'Home',
+      navigationPath: 'AdminHome',
+      iconName: 'home-outline',
     },
     {
-      id:2,
-      title:'My Profile',
-      navigationPath:'Profile',
-      iconName:'person-outline'
+      id: 2,
+      title: 'My Profile',
+      navigationPath: 'Profile',
+      iconName: 'person-outline',
     },
     {
-      id:3,
-      title:'Upcoming Sessions',
-      navigationPath:'UpcomingSessions',
-      iconName:'person-outline'
+      id: 3,
+      title: 'Upcoming Sessions',
+      navigationPath: 'UpcomingSessions',
+      iconName: 'person-outline',
     },
     {
-      id:4,
-      title:'Coaches',
-      navigationPath:'CoachListing',
-      iconName:'people-outline'
+      id: 4,
+      title: 'Coaches',
+      navigationPath: 'CoachListing',
+      iconName: 'people-outline',
     },
     {
-      id:5,
-      title:'Subscriptions',
-      navigationPath:'UpcomingSessions',
-      iconName:'diamond'
-    }
-  ]
+      id: 5,
+      title: 'Users',
+      navigationPath: 'AllUsers',
+      iconName: 'people-outline',
+    },
+    {
+      id: 6,
+      title: 'Subscriptions',
+      navigationPath: 'UpcomingSessions',
+      iconName: 'diamond',
+    },
+  ];
 
+  const userNavigationItems = [
+    {
+      id: 1,
+      title: 'Home',
+      navigationPath: 'Home',
+      iconName: 'home-outline',
+    },
+    {
+      id: 2,
+      title: 'My Profile',
+      navigationPath: 'Profile',
+      iconName: 'person-outline',
+    },
+    {
+      id: 3,
+      title: 'Upcoming Sessions',
+      navigationPath: 'UpcomingSessions',
+      iconName: 'person-outline',
+    },
+    {
+      id: 5,
+      title: 'Subscriptions',
+      navigationPath: 'UpcomingSessions',
+      iconName: 'diamond',
+    },
+  ];
+  const coachNavigationItems = [
+    {
+      id: 1,
+      title: 'Home',
+      navigationPath: 'AdminHome',
+      iconName: 'home-outline',
+    },
+    {
+      id: 2,
+      title: 'My Profile',
+      navigationPath: 'Profile',
+      iconName: 'person-outline',
+    },
+    {
+      id: 3,
+      title: 'Upcoming Sessions',
+      navigationPath: 'UpcomingSessions',
+      iconName: 'calendar-clear-outline',
+    },
+  ];
+  const navigationItems = isAdmin
+    ? adminNavigationItems
+    : isCoach
+    ? coachNavigationItems
+    : userNavigationItems;
   useEffect(() => {
     const fetchUserData = async () => {
       try {
@@ -94,18 +151,19 @@ const CustomDrawerContent = props => {
 
       {/* Drawer Items */}
       <View style={styles.drawerItems}>
-        {navigationItems?.map((e,index)=>{
+        {navigationItems?.map((e, index) => {
           return (
-              <TouchableOpacity key={index.toString()}
-                  style={styles.menuItem}
-                  onPress={() => props.navigation.navigate(e.navigationPath)}>
-                <Icon name={e.iconName} size={24} color="black" />
-                <Text style={styles.menuItemText}>{e.title}</Text>
-              </TouchableOpacity>
-          )
+            <TouchableOpacity
+              key={index.toString()}
+              style={styles.menuItem}
+              onPress={() => props.navigation.navigate(e.navigationPath)}>
+              <Icon name={e.iconName} size={24} color="black" />
+              <Text style={styles.menuItemText}>{e.title}</Text>
+            </TouchableOpacity>
+          );
         })}
 
-       {/* <TouchableOpacity
+        {/* <TouchableOpacity
           style={styles.menuItem}
           onPress={() => props.navigation.navigate('Profile')}>
           <Icon name="person-outline" size={24} color="black" />

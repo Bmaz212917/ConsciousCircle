@@ -5,21 +5,43 @@ import {Colors} from '../assets/Colors';
 import {useNavigation} from '@react-navigation/native';
 import Fonts from '../assets/fonts';
 import AttendeesList from './AttendeesList';
+import MenuWithActions from './MenuWithActions';
+import {useAuth} from '../context/AuthProvider';
 
 const EventListItem = ({data}) => {
   const navigation = useNavigation();
+  const {isAdmin} = useAuth();
 
   const onEventPress = () => {
     navigation.navigate('EventDetail', {data: data});
   };
 
+  const handleEdit = () => {
+    navigation.navigate('CreateEvent', {event: data});
+  };
+
+  const handleDelete = () => {
+    console.log('handleDelete');
+  };
   return (
     <TouchableOpacity onPress={onEventPress} style={styles.listItem}>
       <Image source={data?.image} style={styles.imageStyle} />
       <View style={styles.detailContainer}>
-        <Text ellipsizeMode="tail" numberOfLines={1} style={styles.itemTitle}>
-          {data?.title}
-        </Text>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+          }}>
+          <Text ellipsizeMode="tail" numberOfLines={1} style={styles.itemTitle}>
+            {data?.title}
+          </Text>
+          {isAdmin && (
+            <MenuWithActions
+              onEdit={() => handleEdit(data)}
+              onDelete={() => handleDelete(data)}
+            />
+          )}
+        </View>
         <View style={styles.locationView}>
           <Icon name="location-sharp" size={16} color={Colors.goshawkGrey} />
           <Text numberOfLines={2} style={styles.locationText}>
@@ -77,13 +99,14 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 8,
     marginBottom: 10,
-    elevation: 2,
+    // elevation: 2,
     paddingBottom: 5,
   },
   itemTitle: {
     fontSize: 18,
     fontFamily: Fonts.Medium,
     color: 'black',
+    flex: 1,
   },
   locationView: {
     flexDirection: 'row',

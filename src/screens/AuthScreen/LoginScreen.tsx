@@ -18,13 +18,13 @@ import auth from '@react-native-firebase/auth';
 import {useAuth} from '../../context/AuthProvider';
 import EmailIcon from '../../assets/icons/email.svg';
 import Icon from 'react-native-vector-icons/Ionicons';
+import Fonts from '../../assets/fonts';
 
 const LoginScreen = () => {
   const navigation = useNavigation();
-  const [email, setEmail] = useState('Test1@yopmail.com');
+  const [email, setEmail] = useState('Admin@gmail.com');
   const [password, setPassword] = useState('Test@123');
   const [showPass, setShowPass] = useState(false);
-  const [loading, setLoading] = useState(false);
   const {setUserRole, setUser} = useAuth(); // Access context functions
   const [isLoading, setIsLoading] = useState(false);
 
@@ -49,29 +49,31 @@ const LoginScreen = () => {
       const user = userCredential.user;
       console.log('USER', user);
 
-      if (!user.emailVerified) {
-        Alert.alert(
-          'Email not verified',
-          'Please verify your email before logging in. Resend verification email?',
-          [
-            {
-              text: 'Resend',
-              onPress: async () => {
-                await user.sendEmailVerification();
-                Alert.alert('Success', 'Verification email sent.');
-              },
-            },
-            {text: 'Cancel', style: 'cancel'},
-          ],
-        );
-        return;
-      }
+      // if (!user.emailVerified) {
+      //   Alert.alert(
+      //     'Email not verified',
+      //     'Please verify your email before logging in. Resend verification email?',
+      //     [
+      //       {
+      //         text: 'Resend',
+      //         onPress: async () => {
+      //           await user.sendEmailVerification();
+      //           Alert.alert('Success', 'Verification email sent.');
+      //         },
+      //       },
+      //       {text: 'Cancel', style: 'cancel'},
+      //     ],
+      //   );
+      //   return;
+      // }
 
-      if (user.email === 'test1@yopmail.com') {
+      if (user.email === 'admin@gmail.com') {
         setUserRole('admin');
+      } else if (user.email === 'coach@gmail.com') {
+        setUserRole('coach');
       } else {
         setUserRole('user');
-      } // Redirect to the main screen
+      }
     } catch (err) {
       Alert.alert('error');
     } finally {
@@ -93,8 +95,9 @@ const LoginScreen = () => {
             <CommonTextInput
               placeholder="abc@email.com"
               placeholderTextColor="white"
+              iconSource={require('../../assets/icons/Mail.png')}
               // iconSource={<EmailIcon />}
-              isSvg={true}
+              // isSvg={true}
               enablesReturnKeyAutomatically
               keyboardType="email-address"
               onChangeText={setEmail}
@@ -189,6 +192,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     backgroundColor: 'transparent',
     color: 'white',
+    fontFamily: Fonts.Medium,
   },
   forgotPassContainer: {
     alignItems: 'flex-end',
@@ -196,13 +200,15 @@ const styles = StyleSheet.create({
   },
   forgotPassText: {
     color: 'white',
+    fontFamily: Fonts.Medium,
   },
   memberText: {
     color: 'white',
     alignSelf: 'center',
     borderBottomWidth: 1,
-    borderBlockColor: 'white',
+    borderBottomColor: 'white',
     marginTop: 20,
+    fontFamily: Fonts.Medium,
   },
   buttonStyle: {marginTop: 10},
 });
