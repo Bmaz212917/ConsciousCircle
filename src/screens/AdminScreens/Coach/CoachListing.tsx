@@ -13,6 +13,7 @@ import Header from '../../../components/Header';
 import {useNavigation} from '@react-navigation/native';
 import {Colors} from '../../../assets/Colors';
 import Fonts from '../../../assets/fonts';
+import UserAvatar from "../../../components/UserAvatar";
 const coaches = [
   {
     name: 'John Doe',
@@ -51,8 +52,8 @@ const CoachListing = () => {
     const {name, role, avatar} = item;
 
     return (
-      <View style={styles.coachCard}>
-        <Image source={avatar} style={styles.avatar} />
+      <View style={styles.coachCard}>`
+        {index%2===0 ?<Image source={avatar} style={styles.avatar}/> :<UserAvatar name={name}/>}`
         <View style={styles.textContainer}>
           <Text style={styles.name}>{name}</Text>
           <Text style={styles.role}>{role}</Text>
