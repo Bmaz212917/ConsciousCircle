@@ -88,9 +88,9 @@ const AddCoachScreen = () => {
 
   const handleSave = () => {
     Toast.show({
-      type: 'error', // Matches the key in `toastConfig`
+      type: 'success', // Matches the key in `toastConfig`
       text1: 'Error!',
-      text2: 'Please enetr title.',
+      text2: 'Coach added successfully',
       position: 'top',
     });
     console.log('Saving Coach Details:', coachDetails);
