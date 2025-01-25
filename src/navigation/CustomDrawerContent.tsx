@@ -39,7 +39,7 @@ const CustomDrawerContent = props => {
     {
       id:4,
       title:'Coaches',
-      navigationPath:'UpcomingSessions',
+      navigationPath:'CoachListing',
       iconName:'people-outline'
     },
     {
