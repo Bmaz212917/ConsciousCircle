@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import Header from '../../components/Header';
 import {Colors} from '../../assets/Colors';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -15,10 +15,14 @@ import CommonButton from '../../components/CommonButton';
 import Fonts from '../../assets/fonts';
 import ReadMoreText from '../../components/ReadMoreText';
 import SessionTimeIcon from '../../assets/icons/SessionTimeIcon';
+import CustomCalendar from "../../components/CustomCalendar";
+
 
 const CoachingDetailScreen = props => {
   const navigation = useNavigation();
   const data = props.route.params.data;
+
+  const [calendarModalVisible, setCalendarModalVisible]= useState(false);
 
   return (
     <View style={styles.container}>
@@ -80,7 +84,7 @@ const CoachingDetailScreen = props => {
             />
           </View>
         </View>
-        <TouchableOpacity style={styles.scheduleButton}>
+        <TouchableOpacity style={styles.scheduleButton} onPress={()=>setCalendarModalVisible(true)}>
           <Text style={styles.scheduleText}>Schedule</Text>
           <Icon
             name="calendar-clear-outline"
@@ -102,6 +106,9 @@ const CoachingDetailScreen = props => {
           textStyle={{color: 'white'}}
         />
       )}
+
+      <CustomCalendar navigation={navigation} visible={calendarModalVisible}/>
+
     </View>
   );
 };
