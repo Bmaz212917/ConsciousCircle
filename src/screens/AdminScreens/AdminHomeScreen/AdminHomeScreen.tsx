@@ -138,7 +138,7 @@ const AdminHomeScreen = () => {
         <Animated.View style={[styles.fabButton, fabStyle2]}>
           <TouchableOpacity
             style={styles.fabAction}
-            onPress={() => navigation.navigate('AddCoach')}>
+              onPress={() => navigation.navigate('CreateEvent')}>
             <Icon name="person-add-outline" size={24} color="#fff" />
           </TouchableOpacity>
         </Animated.View>
